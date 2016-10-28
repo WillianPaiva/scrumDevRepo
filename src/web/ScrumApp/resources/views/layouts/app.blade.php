@@ -77,10 +77,6 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
-                                    <li>
-                                    <a href="{{ url('/profile')}}" >profile</a>
-
-                                    </li>
                                 </ul>
                             </li>
                         @endif
