@@ -7241,7 +7241,7 @@ a.thumbnail.active {
 a.list-group-item.active,
 a.list-group-item.active:hover,
 a.list-group-item.active:focus {
-  border-color: rgba(0, 0, 0, 0.6);
+    border-color: /#abb2ba#abb2bargba(0, 0, 0, 0.6);
 }
 a.list-group-item-success.active {
   background-color: #62c462;
@@ -7273,4 +7273,11 @@ a.list-group-item-danger.active:focus {
 .panel-warning .panel-heading,
 .panel-info .panel-heading {
   border-color: #000;
+}
+
+.navbar-brand img {
+    /* width:90px; */
+    /* height:25px; */
+    display:inline-block;
+    margin-top:-4px;
 }
