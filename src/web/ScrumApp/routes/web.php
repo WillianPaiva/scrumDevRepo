@@ -18,8 +18,6 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 Route::get('/profile','UserController@userProfile');
 
-Route::get('/project/list','ProjectController@getProject')->middleware('auth');
-
-Route::post('/project/add','ProjectController@showAddProjectForm')->middleware('auth');
-
-Route::post('/project/addProject','ProjectController@createProject')->middleware('auth');
+Route::get('/project/list','ProjectController@getProject');
+Route::post('/project/add','ProjectController@showAddProjectForm');
+Route::post('/project/addProject','ProjectController@createProject');
