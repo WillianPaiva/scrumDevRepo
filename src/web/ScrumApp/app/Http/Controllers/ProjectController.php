@@ -30,17 +30,15 @@ class ProjectController extends Controller
    */
   public function getProject()
   {
-    $user_id = DB::table('users')->select('id')->where('name',Auth::user()->name)->pluck('id');
-  	$projects = Project::where('user_id',$user_id[0])->get();
-    return view('/project/list', compact('projects'));
+      $projects = Auth::user()->owns()->get();
+      return view('/project/list',compact('projects'));
   }
 
   public function createProject(Request $request)
   {
-    $user_id = DB::table('users')->select('id')->where('name',Auth::user()->name)->pluck('id');
     Project::create([
             'name' => Input::get("name"),
-            'user_id' => $user_id[0],
+            'user_id' => Auth::user()->id,
             'description' => Input::get("description"),
             'language' => Input::get("language"),
             'version' => Input::get("version"),
