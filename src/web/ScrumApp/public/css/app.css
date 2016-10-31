@@ -5461,6 +5461,13 @@ button.list-group-item-danger.active:focus {
 .panel-body {
   padding: 15px;
 }
+.panel-project{
+  width:33%;
+  height:initial;
+  float : left;
+  border-color: rgba(0, 0, 0, 0.6);
+}
+
 .panel-heading {
   padding: 10px 15px;
   border-bottom: 1px solid transparent;
@@ -5696,13 +5703,30 @@ button.list-group-item-danger.active:focus {
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
   border-top-color: rgba(0, 0, 0, 0.6);
 }
-.panel-default > .panel-heading .badge {
+.panel-default  > .panel-heading .badge {
   color: #3e444c;
   background-color: #c8c8c8;
 }
-.panel-default > .panel-footer + .panel-collapse > .panel-body {
+.panel-default  > .panel-footer + .panel-collapse > .panel-body {
   border-bottom-color: rgba(0, 0, 0, 0.6);
 }
+
+.panel-project > .panel-heading {
+  color: #c8c8c8;
+  background-color: #3e444c;
+  border-color: rgba(0, 0, 0, 0.6);
+}
+.panel-project > .panel-heading + .panel-collapse > .panel-body {
+  border-top-color: rgba(0, 0, 0, 0.6);
+}
+.panel-project  > .panel-heading .badge {
+  color: #3e444c;
+  background-color: #c8c8c8;
+}
+.panel-project  > .panel-footer + .panel-collapse > .panel-body {
+  border-bottom-color: rgba(0, 0, 0, 0.6);
+}
+
 .panel-primary {
   border-color: rgba(0, 0, 0, 0.6);
 }
@@ -6831,6 +6855,19 @@ button.close {
   border-color: rgba(0, 0, 0, 0.6);
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 }
+.btn-fixed{
+  background-image: -webkit-linear-gradient(#484e55, #3a3f44 60%, #313539);
+  background-image: -o-linear-gradient(#484e55, #3a3f44 60%, #313539);
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#484e55), color-stop(60%, #3a3f44), to(#313539));
+  background-image: linear-gradient(#484e55, #3a3f44 60%, #313539);
+  background-repeat: no-repeat;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff484e55', endColorstr='#ff313539', GradientType=0);
+  -webkit-filter: none;
+          filter: none;
+          position : fixed;
+          right:0px;
+          bottom:0px;
+}
 .btn-default {
   background-image: -webkit-linear-gradient(#484e55, #3a3f44 60%, #313539);
   background-image: -o-linear-gradient(#484e55, #3a3f44 60%, #313539);
@@ -7281,13 +7318,20 @@ a.list-group-item-danger.active:focus {
     display:inline-block;
     margin-top:-4px;
 }
-
+.jumbotron {
+    background: #000 url("../images/banner.jpg") no-repeat center center;
+    background-size: 100% 100%;
+    -moz-background-size: 100% 100%;
+    -webkit-background-size: 100% 100%;
+    -o-background-size: 100% 100%;
+    color: #FFF; // change text color
+}
 .intro-header {
     padding-top: 50px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
     padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
-    background: url(../images/pic.jpg) no-repeat center center;
+    background: url(../images/banner.jpg) no-repeat center center;
     margin-top:-20px;
     background-size: cover;
 }
