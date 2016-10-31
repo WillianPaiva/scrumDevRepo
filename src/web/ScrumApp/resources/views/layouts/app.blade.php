@@ -44,7 +44,7 @@
                     <!-- Branding Image -->
                     <ul class="nav navbar-nav navbar-right">
                     <a class="nav navbar-brand navbar-left" href="{{ url('/') }}">
-                        <img alt="Brand" class="img-circle" src="images/logo.svg" width="30" height="30">
+                        <img alt="Brand" class="img-circle" src="/images/logo.svg" width="30" height="30">
                     </a>
                     <a class="navbar-brand " href="{{ url('/') }}">
                         {{ config('app.name', 'Scrumk') }}
