@@ -1,5 +1,5 @@
 
-<template>
+<template>  
     <div class="well">
     </br>
         <div v-for="item in members">
