@@ -22,11 +22,9 @@
                                     <td>{{ $project->version }}</td>
                                 </tr>
                             </table>
-                            <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
-                                <button type="submit" class="btn btn-primary">
-                                    Access
-                                </button>
-                            </form>
+                            <a href="{{route('showProject', $project->id)}}" class="btn btn-primary">
+                                open
+                            </a>
                         </div>
                     </div>
                 @endforeach

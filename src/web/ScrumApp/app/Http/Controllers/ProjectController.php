@@ -23,28 +23,28 @@ class ProjectController extends Controller
 
         $this->middleware('auth');
     }
-  /**
-   * Show the application dashboard.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function getProject()
-  {
-      $projects = Auth::user()->owns()->get();
-      return view('/project/list',compact('projects'));
-  }
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getProject()
+    {
+        $projects = Auth::user()->owns()->get();
+        return view('/project/list',compact('projects'));
+    }
 
-  public function createProject(Request $request)
-  {
-    Project::create([
+    public function createProject(Request $request)
+    {
+        Project::create([
             'name' => Input::get("name"),
             'user_id' => Auth::user()->id,
             'description' => Input::get("description"),
             'language' => Input::get("language"),
             'version' => Input::get("version"),
         ]);
-    return ProjectController::getProject();
-  }
+        return ProjectController::getProject();
+    }
 
     /**
      * Show the application registration form.
@@ -54,5 +54,24 @@ class ProjectController extends Controller
     public function showAddProjectForm()
     {
         return view('/project/add');
+    }
+
+
+    /**
+     * Show the application registration form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showProject($id)
+    {
+        $project = Project::find($id);
+        return view('/project/project',['project' => $project]);
+    }
+
+    public function addUser(Request $request)
+    {
+        $project = Project::find(Input::get("id"));
+        $project->members()->attach(Input::get("user"));
+        return view('/project/project',['project' => $project]);
     }
 }
