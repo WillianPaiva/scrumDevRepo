@@ -17,12 +17,9 @@
                     <div class="well">{{ App\User::find($project->user_id)->name }}</div>
                     <label for="language" class="col-md-4 control-label">Members</label>
 
-                    <div class="well">
-                    @foreach($project->members()->get() as $user)
-                        </br>
-                        {{ $user->name }}
-                    @endforeach
-                    </div>
+                    <members :pid="{{ $project->id }}"></members>
+
+
                 </div>
 
                 <form class="form-horizontal" role="form" method="POST" action="addUser">

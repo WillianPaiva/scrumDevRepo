@@ -13,6 +13,26 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::get('/user', function (Request $request) {
-//     return $request->user();
-// })->middleware('auth:api');
+Route::group(['middleware' => 'api'], function() {
+    Route::get('members/{id}', function($id) {
+
+        $project = App\Project::find($id);
+        return $project->members()->get();
+    });
+    Route::get('userlist', function() {
+        $users = App\User::orderBy('name')->pluck('name','id');
+        return $users;
+    });
+    // Route::get('task/{id}', function($id) {
+    //     return App\Task::findOrFail($id);
+    // });
+    // Route::post('task/store', function(Request $request) {
+    //     return App\Task::create(['body' => $request->input(['body'])]);
+    // });
+    // Route::patch('task/{id}', function(Request $request, $id) {
+    //     App\Task::findOrFail($id)->update(['body' => $request->input(['body'])]);
+    // });
+    // Route::delete('task/{id}', function($id) {
+    //     return App\Task::destroy($id);
+    // });
+});
