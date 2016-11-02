@@ -68,10 +68,4 @@ class ProjectController extends Controller
         return view('/project/project',['project' => $project]);
     }
 
-    public function addUser(Request $request)
-    {
-        $project = Project::find(Input::get("id"));
-        $project->members()->attach(Input::get("user"));
-        return view('/project/project',['project' => $project]);
-    }
 }

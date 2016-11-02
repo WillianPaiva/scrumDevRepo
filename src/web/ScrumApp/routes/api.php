@@ -19,9 +19,23 @@ Route::group(['middleware' => 'api'], function() {
         $project = App\Project::find($id);
         return $project->members()->get();
     });
-    Route::get('userlist', function() {
-        $users = App\User::orderBy('name')->pluck('name','id');
-        return $users;
+    Route::get('userlist', function(Request $request) {
+
+        $term = $request->q;
+        $results = array();
+        $queries = DB::table('users')
+                 ->where('name', 'LIKE', '%'.$term.'%')
+                 ->take(5)->get();
+        foreach ($queries as $query)
+        {
+            $results[] = [ 'id' => $query->id, 'name' => $query->name ];
+        }
+        return Response::json($results);
+
+    });
+    Route::post('adduser/{userid}/{projectid}', function($userid, $projectid) {
+        $project = App\Project::find($projectid);
+        $project->members()->attach($userid);
     });
     // Route::get('task/{id}', function($id) {
     //     return App\Task::findOrFail($id);
