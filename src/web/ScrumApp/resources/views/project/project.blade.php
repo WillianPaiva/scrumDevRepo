@@ -23,8 +23,7 @@
                     <label for="language" class="col-md-4 control-label">Members</label>
                     </br>
                     <div id="memb" >
-                        <members  v-bind:membs="members" :pid="{{ $project->id }}"></members>
-                        <adduser :pid="{{ $project->id }}" ></adduser>
+                        <adduser  v-bind:membs="members" :pid="{{ $project->id }}"></adduser>
                     </div>
                 </div>
             </div>

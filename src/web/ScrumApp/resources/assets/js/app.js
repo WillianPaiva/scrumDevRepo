@@ -13,7 +13,7 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 Vue.component('adduser', require('./components/AddUserForm.vue'));
-Vue.component('members', require('./components/Members.vue'));
+// Vue.component('members', require('./components/Members.vue'));
 
 const app = new Vue({
     el: '#memb',
