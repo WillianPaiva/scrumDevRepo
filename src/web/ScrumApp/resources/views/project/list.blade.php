@@ -39,7 +39,7 @@
             @endif
             <form class="form-horizontal" role="form" method="POST" action="{{ url('/project/add') }}">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <button type="submit" class="btn btn-fixed">
+                <button type="submit" class="btn btn-default">
                     New Project
                 </button>
             </form>
