@@ -99,8 +99,12 @@
              });
          },
          deleteProject: function(item){
-             this.$http.post('/api/project/delete/'+item.id);
-             this.update();
+             var r = confirm("do you really want to delete "+item.name);
+             if (r == true) {
+                 this.$http.post('/api/project/delete/'+item.id);
+                 this.update();
+             } else {
+             }
          },
          update: function(){
              this.$http.get('/api/getownproject/'+this.user+'/'+this.message).then(function(response){
