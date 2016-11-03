@@ -12,12 +12,11 @@
 */
 
 
-Route::get('/', 'WelcomeControler@index');
+Route::get('/', 'WelcomeControler@index')->name('welcome');
 Auth::routes();
 
-Route::get('/home', 'HomeController@index');
-Route::get('/profile','UserController@userProfile');
-Route::get('/project/list','ProjectController@getProject');
+Route::get('/profile','UserController@userProfile')->name('profile');
+Route::get('/project/list','ProjectController@getProject')->name('projects');
 Route::post('/project/add','ProjectController@showAddProjectForm');
 Route::post('/project/addProject','ProjectController@createProject');
 Route::get('/project/{id}','ProjectController@showProject')->name('showProject');
