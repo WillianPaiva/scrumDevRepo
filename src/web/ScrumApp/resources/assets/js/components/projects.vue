@@ -32,9 +32,9 @@
                             <a :href="getLink(item)" class="btn btn-primary" role="button">
                                 <i class="fa fa-external-link"></i>
                             </a>
-                            <a href="#" class="btn btn-danger" role="button">
+                            <button class="btn btn-danger" role="button" v-on:click="deleteProject(item)">
                                 <i class="fa fa-trash"></i>
-                            </a></p>
+                            </button></p>
 
                     </div>
 
@@ -54,9 +54,7 @@
                             <a :href="getLink(item)" class="btn btn-primary" role="button">
                                 <i class="fa fa-external-link"></i>
                             </a>
-                            <a href="#" class="btn btn-danger" role="button">
-                                <i class="fa fa-trash"></i>
-                            </a></p>
+                            </p>
 
                     </div>
 
@@ -72,7 +70,8 @@
      data: function(){
          return {
              owns:[],
-             member:[]
+             member:[],
+             message: ""
          }
      },
      props:['user'],
@@ -96,6 +95,10 @@
                  this.member = response.data;
              });
          },
+         deleteProject: function(item){
+             this.$http.post('/api/project/delete/'+item.id);
+             this.update();
+         },
          update: function(){
              this.$http.get('/api/getownproject/'+this.user+'/'+this.message).then(function(response){
                  this.owns = response.data;
@@ -106,7 +109,7 @@
          },
          getLink: function(item){
              return "/project/"+item.id;
-             }
+             },
 
      }
  }

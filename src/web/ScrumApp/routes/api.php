@@ -41,6 +41,9 @@ Route::group(['middleware' => 'api'], function() {
         $project = App\Project::find($projectid);
         $project->members()->detach($userid);
     });
+    Route::post('project/delete/{projectid}', function($projectid) {
+         App\Project::find($projectid)->delete();
+    });
     Route::get('getownproject/{id}/{search?}', function($id, $search = null) {
         $user = App\User::find($id);
         if($search == null){
