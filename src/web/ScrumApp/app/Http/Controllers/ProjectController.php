@@ -68,4 +68,23 @@ class ProjectController extends Controller
         return view('/project/project',['project' => $project]);
     }
 
+
+    public function showModifyProject($id)
+    {
+        $project = Project::find($id);
+        return view('/project/modify',['project' => $project]);
+    }
+
+    public function modifyProject(Request $request)
+    {
+        $project = Project::find(Input::get("id"));
+        $project->name = Input::get("name");
+        $project->description = Input::get("description");
+        $project->language = Input::get("language");
+        $project->version = Input::get("version");
+        $project->save();
+        
+        return ProjectController::getProject();
+    }
+
 }

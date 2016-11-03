@@ -35,6 +35,9 @@
                             <a :href="getLink(item)" class="btn btn-primary" role="button">
                                 <i class="fa fa-external-link"></i>
                             </a>
+                            <a :href="getEdit(item)" class="btn btn-info" role="button">
+                                <i class="fa fa-pencil-square-o"></i>
+                            </a>
                             <button class="btn btn-danger" role="button" v-on:click="deleteProject(item)">
                                 <i class="fa fa-trash"></i>
                             </button></p>
@@ -116,6 +119,9 @@
          },
          getLink: function(item){
              return "/project/"+item.id;
+             },
+        getEdit: function(item){
+             return "/project/showModifyProject/"+item.id;
              },
 
      }
