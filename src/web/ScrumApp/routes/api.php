@@ -41,16 +41,26 @@ Route::group(['middleware' => 'api'], function() {
         $project = App\Project::find($projectid);
         $project->members()->detach($userid);
     });
-    // Route::get('task/{id}', function($id) {
-    //     return App\Task::findOrFail($id);
-    // });
-    // Route::post('task/store', function(Request $request) {
-    //     return App\Task::create(['body' => $request->input(['body'])]);
-    // });
-    // Route::patch('task/{id}', function(Request $request, $id) {
-    //     App\Task::findOrFail($id)->update(['body' => $request->input(['body'])]);
-    // });
-    // Route::delete('task/{id}', function($id) {
-    //     return App\Task::destroy($id);
-    // });
+    Route::get('getownproject/{id}/{search?}', function($id, $search = null) {
+        $user = App\User::find($id);
+        if($search == null){
+            return Response::json($user->owns()->get());
+        }else{
+            return Response::json($user->owns()
+                                  ->where('name', 'LIKE', '%'.$search.'%')
+                                  ->get());
+        }
+
+    });
+    Route::get('getmemberproject/{id}/{search?}', function($id, $search = null) {
+        $user = App\User::find($id);
+        if($search == null){
+            return Response::json($user->memberof()->get());
+        }else{
+            return Response::json($user->memberof()
+                                  ->where('name', 'LIKE', '%'.$search.'%')
+                                  ->get());
+        }
+
+    });
 });
