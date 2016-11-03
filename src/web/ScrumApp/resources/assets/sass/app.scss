@@ -180,32 +180,6 @@ h1, h2, h3, h4, h5, h6 {
 
 // Tables =====================================================================
 
-.table {
-  
-      display: block;
-    overflow: hidden;
-    white-space: nowrap;
-
-  .success,
-  .warning,
-  .danger,
-  .info {
-    color: #fff;
-  }
-
-  &-bordered tbody {
-
-    tr.success,
-    tr.warning,
-    tr.danger {
-
-      td,
-      &:hover td {
-        border-color: $table-border-color;
-      }
-    }
-  }
-}
 
 .table-responsive > .table {
   background-color: $table-bg;
