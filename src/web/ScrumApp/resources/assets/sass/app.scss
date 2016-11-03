@@ -88,7 +88,13 @@
   text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
 }
 
-.btn-default {
+.btn-fixed{
+  position : fixed;
+          right:0px;
+          bottom:0px;
+}
+
+.btn-default,.btn-fixed {
   @include btn-shadow($btn-default-bg);
 
   &:hover {
@@ -175,6 +181,10 @@ h1, h2, h3, h4, h5, h6 {
 // Tables =====================================================================
 
 .table {
+  
+      display: block;
+    overflow: hidden;
+    white-space: nowrap;
 
   .success,
   .warning,
@@ -463,6 +473,12 @@ a.list-group-item {
     border-color: #000;
   }
 }
+.panel.panel-default.list-project{
+  float: left;
+    width: 33%;
+    height: inherit;
+}
+
 
 .navbar-brand img {
     /* width:90px; */
@@ -498,4 +514,12 @@ a.list-group-item {
 }
 .intro-message > h3 {
     text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+}
+
+
+
+// Div =================================================================
+
+.well{
+  word-wrap: break-word;
 }
