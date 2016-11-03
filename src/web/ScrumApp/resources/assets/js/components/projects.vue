@@ -8,9 +8,12 @@
                 </span>
                 <input type="text"  v-model="message"
                        class="form-control"
-                       placeholder="Search user"
+                       placeholder="Search project"
                        @input="update"
                 />
+                <a class="input-group-addon btn btn-success" href="/project/add">
+                    <i class="fa fa-plus"></i>
+                </a>
             </div>
 
             </br>

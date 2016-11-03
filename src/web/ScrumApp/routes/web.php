@@ -17,6 +17,6 @@ Auth::routes();
 
 Route::get('/profile','UserController@userProfile')->name('profile');
 Route::get('/project/list','ProjectController@getProject')->name('projects');
-Route::post('/project/add','ProjectController@showAddProjectForm');
+Route::get('/project/add','ProjectController@showAddProjectForm');
 Route::post('/project/addProject','ProjectController@createProject');
 Route::get('/project/{id}','ProjectController@showProject')->name('showProject');
