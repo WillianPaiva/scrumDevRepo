@@ -86,9 +86,6 @@ export default {
     }
   },
 
-    mounted() {
-        this.pullData();
-    },
   methods: {
     // The callback function which is triggered when the user hits on an item
     // (required)

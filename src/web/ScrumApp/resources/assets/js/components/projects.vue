@@ -36,9 +36,9 @@
                             <button class="btn btn-primary" role="button" v-on:click="getLinkOwns(index)">
                                 <i class="fa fa-gear"></i>
                             </button>
-                            <a :href="getEdit(item)" class="btn btn-info" role="button">
+                            <button  class="btn btn-info" role="button" v-on:click="getEdit(index)">
                                 <i class="fa fa-pencil-square-o"></i>
-                            </a>
+                            </button>
                             <button class="btn btn-danger" role="button" v-on:click="deleteProject(item)">
                                 <i class="fa fa-trash"></i>
                             </button>
@@ -133,7 +133,7 @@
             <div class="well">{{ proj.version }}</div>
             <label for="language" class="col-md-4 control-label">Owner</label>
             </br>
-            <div class="well">nothing</div>
+            <div class="well">{{ proj.username }}</div>
             <label for="language" class="col-md-4 control-label">Members</label>
             </br>
             <div id="memb" >
@@ -146,6 +146,44 @@
                 </modal>
         </div>
 
+        <div class="container">
+                <modal title="Edit Details"
+                       :show.sync="modalShowEdit"
+                       :okText="'Edit'"
+                       :okClass="'btn btn-success'"
+                       @ok="editDetails"
+                       :cancelClass="'btn btn-danger'"
+                       @cancel="cancel">
+
+                    <form class="form-horizontal" >
+                        <div class="form-group">
+                            <label for="name"  class="col-md-4 control-label">Name</label>
+                            <div class="col-md-6">
+                                <input id="name" v-model="edit.name" type="text" class="form-control" name="name" required />
+                            </div>
+                        </div>
+
+                    <div class="form-group">
+                        <label for="description"  class="col-md-4 control-label">Description</label>
+                        <div class="col-md-6">
+                            <textarea id="description" v-model="edit.description" class="form-control" name="description" value="" required></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="language" j class="col-md-4 control-label">Language</label>
+                        <div class="col-md-6">
+                            <input id="language" v-model="edit.language" type="text" class="form-control" name="language" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="version" class="col-md-4 control-label">Version</label>
+                        <div class="col-md-6">
+                            <input id="version" v-model="edit.version" type="text" class="form-control" name="version" required>
+                        </div>
+                    </div>
+                    </form>
+                </modal>
+        </div>
     </div>
 
 </template>
@@ -160,8 +198,16 @@
                  language: '',
                  version: '',
              },
-             i: 0,
+             edit: {
+                 name: '',
+                 user_id: '',
+                 description: '',
+                 language: '',
+                 version: '',
+                 id: '',
+             },
              modalShowProject: false,
+             modalShowEdit: false,
              owns:[],
              member:[],
              proj:{
@@ -171,6 +217,7 @@
                  description: '',
                  language: '',
                  version: '',
+                 username: '',
              },
              message: "",
              modalShow: false
@@ -220,8 +267,7 @@
              this.proj.version = this.owns[item].version;
              this.proj.language = this.owns[item].language;
              this.proj.user_id = this.owns[item].user_id;
-
-             this.i = item;
+             this.proj.username = this.owns[item].username;
              this.modalShowProject= true;
              },
          getLinkMember: function(item){
@@ -231,23 +277,40 @@
              this.proj.version = this.member[item].version;
              this.proj.language = this.member[item].language;
              this.proj.user_id = this.member[item].user_id;
-             this.i = item;
+             this.proj.username = this.member[item].username;
              this.modalShowProject= true;
              },
         getEdit: function(item){
-             return "/project/showModifyProject/"+item.id;
+             this.edit.name = this.owns[item].name;
+             this.edit.id = this.owns[item].id;
+             this.edit.description = this.owns[item].description;
+             this.edit.version = this.owns[item].version;
+             this.edit.language = this.owns[item].language;
+             this.edit.user_id = this.owns[item].user_id;
+             this.modalShowEdit= true;
              },
 
         addproj: function(){
             this.addNewRequest.user_id=this.user;
-            this.$http.post('/api/project/add',this.addNewRequest).then(function(response){
-                console.log(response);
-            });
+            this.$http.post('/api/project/add',this.addNewRequest);
+            this.addNewRequest = {
+                 name: '',
+                 user_id: '',
+                 description: '',
+                 language: '',
+                 version: '',
+             };
             this.modalShow = false;
+             },
+        editDetails: function(){
+            this.$http.post('/api/project/edit',this.edit);
+            this.modalShowEdit = false;
+                 this.update();
              },
         cancel: function(){
             this.modalShow = false;
              this.modalShowProject= false;
+             this.modalShowEdit= false;
              },
      },
  }

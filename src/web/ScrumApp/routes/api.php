@@ -56,24 +56,60 @@ Route::group(['middleware' => 'api'], function() {
     });
     Route::get('getownproject/{id}/{search?}', function($id, $search = null) {
         $user = App\User::find($id);
+        $result = array();
+
         if($search == null){
-            return Response::json($user->owns()->get());
+            $queries = $user->owns()->get();
         }else{
-            return Response::json($user->owns()
-                                  ->where('name', 'LIKE', '%'.$search.'%')
-                                  ->get());
+            $queries = $user->owns()->where('name', 'LIKE', '%'.$search.'%')->get();
         }
+
+        foreach ($queries as $query)
+        {
+            $result[] = [ 'id' => $query->id,
+                           'name' => $query->name,
+                           'description' => $query->description,
+                           'language' => $query->language,
+                           'user_id' => $query->user_id,
+                           'version' => $query->version,
+                           'username' => $user->name
+            ];
+        }
+        return Response::json($result);
 
     });
     Route::get('getmemberproject/{id}/{search?}', function($id, $search = null) {
         $user = App\User::find($id);
+        $result = array();
         if($search == null){
-            return Response::json($user->memberof()->get());
+           $queries = $user->memberof()->get();
         }else{
-            return Response::json($user->memberof()
-                                  ->where('name', 'LIKE', '%'.$search.'%')
-                                  ->get());
+            $queries = $user->memberof() ->where('name', 'LIKE', '%'.$search.'%') ->get();
         }
+
+        foreach ($queries as $query)
+        {
+            $result[] = [ 'id' => $query->id,
+                           'name' => $query->name,
+                           'description' => $query->description,
+                           'language' => $query->language,
+                           'user_id' => $query->user_id,
+                           'version' => $query->version,
+                           'username' => $user->name
+            ];
+        }
+        return Response::json($result);
+
+    });
+
+    Route::post('project/edit', function(Request $request) {
+        $project = App\Project::find($request->id);
+        $project->name = $request->name;
+        $project->description = $request->description;
+        $project->language = $request->language;
+        $project->version = $request->version;
+        $project->save();
 
     });
 });
+
