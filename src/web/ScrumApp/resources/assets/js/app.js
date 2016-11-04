@@ -12,8 +12,12 @@ require('./bootstrap');
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
+Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
+Vue.config.silent = true;
 Vue.component('projects', require('./components/projects.vue'));
 Vue.component('adduser', require('./components/AddUserForm.vue'));
+Vue.component('modal', require('./components/modal.vue'));
+
 // Vue.component('members', require('./components/Members.vue'));
 
 const app = new Vue({

@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
 Route::group(['middleware' => 'api'], function() {
     Route::get('members/{id}', function($id) {
 
@@ -33,6 +32,7 @@ Route::group(['middleware' => 'api'], function() {
         return Response::json($results);
 
     });
+
     Route::post('adduser/{userid}/{projectid}', function($userid, $projectid) {
         $project = App\Project::find($projectid);
         $project->members()->attach($userid);
@@ -43,6 +43,16 @@ Route::group(['middleware' => 'api'], function() {
     });
     Route::post('project/delete/{projectid}', function($projectid) {
          App\Project::find($projectid)->delete();
+    });
+    Route::post('project/add', function(Request $request) {
+        App\Project::create([
+            'name' => $request->name,
+            'user_id' => $request->user_id,
+            'description' => $request->description,
+            'language' => $request->language,
+            'version' => $request->version,
+        ]);
+
     });
     Route::get('getownproject/{id}/{search?}', function($id, $search = null) {
         $user = App\User::find($id);

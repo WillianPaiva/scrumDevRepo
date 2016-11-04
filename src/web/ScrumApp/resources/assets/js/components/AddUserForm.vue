@@ -52,6 +52,11 @@ export default {
   extends: VueTypeahead, // vue@1.0.22+
   // mixins: [VueTypeahead], // vue@1.0.21-
      props: ['pid','membs'],
+     watch: {
+         pid: function(){
+             this.pullData();
+         }
+     },
   data () {
     return {
       // The source url
@@ -84,7 +89,6 @@ export default {
     mounted() {
         this.pullData();
     },
-
   methods: {
     // The callback function which is triggered when the user hits on an item
     // (required)
