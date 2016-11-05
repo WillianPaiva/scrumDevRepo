@@ -25,8 +25,7 @@ use Image;
 	public function userProfile()
 	{
 
-		return view('profile',array('user'=>Auth::user(),
-      'memberOf'=>Auth::user()->memberOf()->get()));
+		return view('profile',array('user'=>Auth::user(),'memberOf'=>Auth::user()->memberOf()->get()));
 	}
   public function update_avatar(Request $request){
      	// Handle the user upload of avatar
@@ -38,7 +37,7 @@ use Image;
      		$user->avatar = $filename;
      		$user->save();
      	}
-     	return view('profile', array('user' => Auth::user()));
+     	return view('profile',array('user'=>Auth::user(),'memberOf'=>Auth::user()->memberOf()->get()));
      }
 
     
