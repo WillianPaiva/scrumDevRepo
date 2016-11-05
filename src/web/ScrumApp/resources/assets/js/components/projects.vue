@@ -113,7 +113,7 @@
                        :show.sync="modalShowProject"
                        :okText="'Close'"
                        :okClass="'btn btn-success'"
-                       @ok="cancel"
+                       @ok="closeDetails"
                        :cancelClass="'hidden'"
                        @cancel="cancel">
 
@@ -312,6 +312,10 @@
             this.modalShow = false;
              this.modalShowProject= false;
              this.modalShowEdit= false;
+             },
+        closeDetails: function(){
+             this.modalShowProject= false;
+                 this.update();
              },
      },
  }
