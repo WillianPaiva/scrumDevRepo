@@ -43,13 +43,6 @@ const app = new Vue({
 
 });
 
-const getToken = new Vue({
-    el: '#memb',
-    data:{
-        members: []
-    }
-
-});
 
 const projects = new Vue({
     el: '#projects'

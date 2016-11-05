@@ -25,4 +25,9 @@ class Project extends Model
         return $this->belongsToMany('App\User', 'project_user');
     }
 
+    public function Backlogs()
+    {
+        return $this->hasMany('App\Backlog');
+    }
+
 }
