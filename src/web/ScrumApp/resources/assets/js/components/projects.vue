@@ -301,6 +301,7 @@
                  version: '',
              };
             this.modalShow = false;
+            this.update();
              },
         editDetails: function(){
             this.$http.post('/api/project/edit',this.edit);
