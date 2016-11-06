@@ -1,90 +1,84 @@
 <template>
     <div>
-
         <div class="row search">
             <div class="col-sm-4 col-sm-offset-4">
-            <div class="input-group">
-                <span class="input-group-addon">
-                    <i class="fa fa-search"></i>
-                </span>
-                <input type="text"  v-model="message"
-                       class="form-control"
-                       placeholder="Search project"
-                       @input="update"
-                />
-                <a class="input-group-addon btn btn-success" v-on:click="modalShow=true">
-                    <i class="fa fa-plus"></i>
-                </a>
-            </div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-search"></i>
+                    </span>
+                    <input type="text"  v-model="message"
+                           class="form-control"
+                           placeholder="Search project"
+                           @input="update"
+                    />
+                    <a class="input-group-addon btn btn-success" v-on:click="modalShow=true">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
 
             </br>
             </br>
             </br>
-        </div><!-- /input-group -->
+            </div><!-- /input-group -->
         </div>
-
-
         <div class="row">
-            <div class="col-sm-6 col-md-4" v-for="(item, index) in owns">
+            <div class="col-sm-6 col-md-4 pad" v-for="(item, index) in owns">
                 <div class="thumbnail">
-                    <div class="caption">
+                    <a :href="getBacklogLink(item)" class="caption nounderline">
                         <h3>{{ item.name }}   <span class="badge">Owner</span></h3>
                         <p class="desc">
                             {{ item.description }}
                         </p>
-                        <p>
-                            <button class="btn btn-primary" role="button" v-on:click="getLinkOwns(index)">
-                                <i class="fa fa-gear"></i>
-                            </button>
-                            <button  class="btn btn-info" role="button" v-on:click="getEdit(index)">
-                                <i class="fa fa-pencil-square-o"></i>
-                            </button>
-                            <button class="btn btn-danger" role="button" v-on:click="deleteProject(item)">
-                                <i class="fa fa-trash"></i>
-                            </button>
-
-                    </div>
-
-
+                        <div class="pull-right"><i class="fa fa-list fa-4x"></i></div>
+                    </a>
+                    <button class="btn btn-primary" role="button" v-on:click="getLinkOwns(index)">
+                        <i class="fa fa-gear"></i>
+                    </button>
+                    <button  class="btn btn-info" role="button" v-on:click="getEdit(index)">
+                        <i class="fa fa-pencil-square-o"></i>
+                    </button>
+                    <button class="btn btn-danger" role="button" v-on:click="deleteProject(item)">
+                        <i class="fa fa-trash"></i>
+                    </button>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-6 col-md-4" v-for="(item, index) in member">
-                <div class="thumbnail" >
-                    <div class="caption">
+            <div class="col-sm-6 col-md-4 pad" v-for="(item, index) in member">
+                <div class="thumbnail">
+                    <a :href="getBacklogLink(item)" class="caption nounderline">
                         <h3>{{ item.name }}   <span class="badge">Member</span></h3>
                         <p class="desc">
                             {{ item.description }}
                         </p>
-                        <p>
-                            <button class="btn btn-primary" role="button" v-on:click="getLinkMember(index)" >
-                                <i class="fa fa-gear"></i>
-                            </button>
-                            </p>
+                        <div class="pull-right"><i class="fa fa-list fa-4x"></i></div>
+                    </a>
 
-                    </div>
-
+                    <button class="btn btn-primary" role="button" v-on:click="getLinkMember(index)" >
+                        <i class="fa fa-gear"></i>
+                    </button>
 
                 </div>
+
+
             </div>
         </div>
 
         <div class="container">
-                <modal title="Create New Project"
-                       :show.sync="modalShow"
-                       :okText="'Create'"
-                       :okClass="'btn btn-success'"
-                       :cancelClass="'btn btn-danger'"
-                       @ok="addproj"
-                       @cancel="cancel">
-                    <form class="form-horizontal" >
-                        <div class="form-group">
-                            <label for="name"  class="col-md-4 control-label">Name</label>
-                            <div class="col-md-6">
-                                <input id="name" v-model="addNewRequest.name" type="text" class="form-control" name="name" required />
-                            </div>
+            <modal title="Create New Project"
+                   :show.sync="modalShow"
+                   :okText="'Create'"
+                   :okClass="'btn btn-success'"
+                   :cancelClass="'btn btn-danger'"
+                   @ok="addproj"
+                   @cancel="cancel">
+                <form class="form-horizontal" >
+                    <div class="form-group">
+                        <label for="name"  class="col-md-4 control-label">Name</label>
+                        <div class="col-md-6">
+                            <input id="name" v-model="addNewRequest.name" type="text" class="form-control" name="name" required />
                         </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="description"  class="col-md-4 control-label">Description</label>
@@ -104,25 +98,25 @@
                             <input id="version" v-model="addNewRequest.version" type="text" class="form-control" name="version" required>
                         </div>
                     </div>
-                    </form>
-                </modal>
+                </form>
+            </modal>
         </div>
 
         <div class="container">
-                <modal title="Project Details"
-                       :show.sync="modalShowProject"
-                       :okText="'Close'"
-                       :okClass="'btn btn-success'"
-                       @ok="closeDetails"
-                       :cancelClass="'hidden'"
-                       @cancel="closeDetails">
+            <modal title="Project Details"
+                   :show.sync="modalShowProject"
+                   :okText="'Close'"
+                   :okClass="'btn btn-success'"
+                   @ok="closeDetails"
+                   :cancelClass="'hidden'"
+                   @cancel="closeDetails">
 
-                    <div class="row">
-                        <div class="col-md-12 col-md-offset-0">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">{{proj.name}}</div>
-                                <div class="panel-body">
-                                    <label for="language" class="col-md-4 control-label">Desciption</label>
+                <div class="row">
+                    <div class="col-md-12 col-md-offset-0">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">{{proj.name}}</div>
+                            <div class="panel-body">
+                                <label for="language" class="col-md-4 control-label">Desciption</label>
             </br>
             <div class="well">{{ proj.description }}</div>
             <label for="language" class="col-md-4 control-label">Language</label>
@@ -139,29 +133,29 @@
             <div id="memb" >
                 <adduser  v-bind:membs="members" v-bind:pid="proj.id"></adduser>
             </div>
-                                </div>
                             </div>
                         </div>
                     </div>
-                </modal>
+                </div>
+            </modal>
         </div>
 
         <div class="container">
-                <modal title="Edit Details"
-                       :show.sync="modalShowEdit"
-                       :okText="'Edit'"
-                       :okClass="'btn btn-success'"
-                       @ok="editDetails"
-                       :cancelClass="'btn btn-danger'"
-                       @cancel="cancel">
+            <modal title="Edit Details"
+                   :show.sync="modalShowEdit"
+                   :okText="'Edit'"
+                   :okClass="'btn btn-success'"
+                   @ok="editDetails"
+                   :cancelClass="'btn btn-danger'"
+                   @cancel="cancel">
 
-                    <form class="form-horizontal" >
-                        <div class="form-group">
-                            <label for="name"  class="col-md-4 control-label">Name</label>
-                            <div class="col-md-6">
-                                <input id="name" v-model="edit.name" type="text" class="form-control" name="name" required />
-                            </div>
+                <form class="form-horizontal" >
+                    <div class="form-group">
+                        <label for="name"  class="col-md-4 control-label">Name</label>
+                        <div class="col-md-6">
+                            <input id="name" v-model="edit.name" type="text" class="form-control" name="name" required />
                         </div>
+                    </div>
 
                     <div class="form-group">
                         <label for="description"  class="col-md-4 control-label">Description</label>
@@ -181,11 +175,10 @@
                             <input id="version" v-model="edit.version" type="text" class="form-control" name="version" required>
                         </div>
                     </div>
-                    </form>
-                </modal>
+                </form>
+            </modal>
         </div>
     </div>
-
 </template>
 <script>
  export default{
@@ -316,6 +309,9 @@
              this.modalShowProject= false;
                  this.update();
              },
+        getBacklogLink: function(item){
+            return '/backlog/'+item.id;
+             },
      },
  }
 </script>
@@ -325,7 +321,10 @@
     height: 100px;
     overflow: auto;
 }
-
+ .pad{
+    padding-right: 45px;
+    padding-left: 45px;
+     }
 .desc {
    overflow: hidden;
    text-overflow: ellipsis;
@@ -336,5 +335,19 @@
    line-height: 16px;        /* fallback */
    max-height: 32px;       /* fallback */
 }
+.nounderline{text-decoration: none}
 
+.thumbnail:hover
+{
+    box-shadow: 0px 0px 150px #000000;
+    z-index: 2;
+    -webkit-transition: all 200ms ease-in;
+    -webkit-transform: scale(1.5);
+    -ms-transition: all 200ms ease-in;
+    -ms-transform: scale(1.5);   
+    -moz-transition: all 200ms ease-in;
+    -moz-transform: scale(1.5);
+    transition: all 200ms ease-in;
+    transform: scale(1.1);
+}
 </style>
