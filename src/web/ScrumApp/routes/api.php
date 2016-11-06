@@ -52,10 +52,7 @@ Route::group(['middleware' => 'api'], function() {
             'language' => $request->language,
             'version' => $request->version,
         ]);
-        $backlog = App\Backlog::create(['project_id' => $project->id,]);
-        return $backlog;
-
-
+        return $project;
     });
     Route::get('getownproject/{id}/{search?}', function($id, $search = null) {
         $user = App\User::find($id);

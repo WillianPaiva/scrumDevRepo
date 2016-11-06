@@ -45,12 +45,6 @@ return [
 'color'=>$colours[array_rand($colours)],
 ];
   });
-$factory->define(App\Backlog::class,function(Faker\Generator $faker){
-    $projects= App\Project::all()->pluck('id')->toArray();
-    return [
-      'project_id'=>$projects[array_rand($projects)],
-    ];
-  });
 $factory->define(App\Sprint::class,function(Faker\Generator $faker){
   return [
     'name'=>$faker->word,
@@ -62,7 +56,7 @@ $factory->define(App\Sprint::class,function(Faker\Generator $faker){
 
 $factory->define(App\UserStory::class,function(Faker\Generator $faker){
 $sprints=App\Sprint::all()->pluck('id')->toArray();
-$backlogs=App\Backlog::all()->pluck('id')->toArray();
+$projects=App\projects::all()->pluck('id')->toArray();
 $status=array('TODO','ON GOING','DONE');
 return[
   'description'=>$faker->paragraph,
@@ -73,7 +67,7 @@ return[
   'date_finished'=>$faker->date($format = 'Y-m-d', $max = 'now'),
   'effort'=>$faker->randomDigitNotNull,
   'priority'=>$faker->randomDigitNotNull,
-  'backlog_id'=>$backlogs[array_rand($backlogs)],
+  'project_id'=>$projects[array_rand($projects)],
   'sprint_id'=>$sprints[array_rand($sprints)],
 
 ];

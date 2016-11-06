@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class UserStory extends Model
 {
     //
-    public function backlog()
+    public function project()
     {
-        return $this->belongsTo('App\Backlog');
+        return $this->belongsTo('App\Project');
     }
     public function sprint()
     {

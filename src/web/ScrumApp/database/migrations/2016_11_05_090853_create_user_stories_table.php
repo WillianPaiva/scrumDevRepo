@@ -23,8 +23,8 @@ class CreateUserStoriesTable extends Migration
             $table->date('date_finished');
             $table->integer('effort');
             $table->integer('priority');
-            $table->integer('backlog_id')->unsigned();
-            $table->foreign('backlog_id')->references('id')->on('backlogs');
+            $table->integer('project_id')->unsigned();
+            $table->foreign('project_id')->references('id')->on('projects');
             $table->integer('sprint_id')->unsigned();
             $table->foreign('sprint_id')->references('id')->on('sprints');
             $table->timestamps();
