@@ -44,6 +44,9 @@ Route::group(['middleware' => 'api'], function() {
     Route::post('project/delete/{projectid}', function($projectid) {
          App\Project::find($projectid)->delete();
     });
+    Route::post('us/delete/{id}', function($id) {
+        App\UserStory::find($id)->delete();
+    });
     Route::post('project/add', function(Request $request) {
         $project = App\Project::create([
             'name' => $request->name,
