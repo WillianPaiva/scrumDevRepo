@@ -32,7 +32,7 @@ Vue.config.silent = true;
 Vue.component('projects', require('./components/projects.vue'));
 Vue.component('adduser', require('./components/AddUserForm.vue'));
 Vue.component('modal', require('./components/modal.vue'));
-
+Vue.component('backlog', require('./components/backlog.vue'));
 // Vue.component('members', require('./components/Members.vue'));
 
 const app = new Vue({
@@ -43,6 +43,9 @@ const app = new Vue({
 
 });
 
+const backlog = new Vue({
+    el: '#backlog'
+});
 
 const projects = new Vue({
     el: '#projects'

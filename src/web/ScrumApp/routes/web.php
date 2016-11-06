@@ -18,5 +18,6 @@ Auth::routes();
 Route::get('/profile','UserController@userProfile')->name('profile');
 Route::post('/profile','UserController@update_avatar');
 Route::get('/project/list','ProjectController@getProject')->name('projects');
+Route::get('/backlog/{id}','backlogController@index')->name('backlog');
 
 

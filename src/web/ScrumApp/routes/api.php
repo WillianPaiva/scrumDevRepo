@@ -54,6 +54,23 @@ Route::group(['middleware' => 'api'], function() {
         ]);
         return $project;
     });
+
+    Route::post('us/add', function(Request $request) {
+        $us = App\UserStory::create([
+            'description' => $request->description,
+            'status' => null,
+            'commit' => null,
+            'date_begin' => null,
+            'date_estimated' => null,
+            'date_finished' => null,
+            'effort' => $request->effort,
+            'priority' => $request->priority,
+            'project_id' => $request->project_id,
+            'sprint_id' => null,
+        ]);
+        return $us;
+    });
+
     Route::get('getownproject/{id}/{search?}', function($id, $search = null) {
         $user = App\User::find($id);
         $result = array();
@@ -110,6 +127,14 @@ Route::group(['middleware' => 'api'], function() {
         $project->version = $request->version;
         $project->save();
 
+    });
+    Route::get('project/{id}', function($id) {
+        return Response::json(App\Project::find($id));
+    });
+
+    Route::get('backlog/{id}', function($id) {
+        $project = App\Project::find($id);
+        return Response::json($project->UserStorys()->get());
     });
 });
 
