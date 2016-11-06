@@ -56,7 +56,7 @@ $factory->define(App\Sprint::class,function(Faker\Generator $faker){
 
 $factory->define(App\UserStory::class,function(Faker\Generator $faker){
 $sprints=App\Sprint::all()->pluck('id')->toArray();
-$projects=App\projects::all()->pluck('id')->toArray();
+$projects=App\Project::all()->pluck('id')->toArray();
 $status=array('TODO','ON GOING','DONE');
 return[
   'description'=>$faker->paragraph,

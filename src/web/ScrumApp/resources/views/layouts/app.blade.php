@@ -59,6 +59,8 @@
                             <!-- Authentication Links -->
 
                             @if (!Auth::guest())
+
+
                                 @if (Route::currentRouteName() == 'projects')
                                     <li class="active"><a href="{{ url('/project/list') }}"><span class="fa fa-home"></span></a></li>
                                 @else
