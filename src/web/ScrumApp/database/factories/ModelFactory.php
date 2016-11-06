@@ -38,3 +38,69 @@ $factory->define(App\Project::class, function (Faker\Generator $faker) {
         'version' => $faker->randomDigit,
     ];
 });
+$factory->define(App\Flag::class,function(Faker\Generator $faker){
+$colours=array('red','blue');
+return [
+'name'=>$faker->word,
+'color'=>$colours[array_rand($colours)],
+];
+  });
+$factory->define(App\Backlog::class,function(Faker\Generator $faker){
+    $projects= App\Project::all()->pluck('id')->toArray();
+    return [
+      'project_id'=>$projects[array_rand($projects)],
+    ];
+  });
+$factory->define(App\Sprint::class,function(Faker\Generator $faker){
+  return [
+    'name'=>$faker->word,
+    'date_begin'=>$faker->date($format = 'Y-m-d', $max = 'now'),
+    'date_estimated'=>$faker->date($format = 'Y-m-d', $max = 'now'),
+  ];
+});
+
+
+$factory->define(App\UserStory::class,function(Faker\Generator $faker){
+$sprints=App\Sprint::all()->pluck('id')->toArray();
+$backlogs=App\Backlog::all()->pluck('id')->toArray();
+$status=array('TODO','ON GOING','DONE');
+return[
+  'description'=>$faker->paragraph,
+  'status'=>$status[array_rand($status)],
+  'commit'=>$faker->word,
+  'date_begin'=>$faker->date($format = 'Y-m-d', $max = 'now'),
+  'date_estimated'=>$faker->date($format = 'Y-m-d', $max = 'now'),
+  'date_finished'=>$faker->date($format = 'Y-m-d', $max = 'now'),
+  'effort'=>$faker->randomDigitNotNull,
+  'priority'=>$faker->randomDigitNotNull,
+  'backlog_id'=>$backlogs[array_rand($backlogs)],
+  'sprint_id'=>$sprints[array_rand($sprints)],
+
+];
+  });
+
+$factory ->define(App\Task::class,function(Faker\Generator $faker){
+$user_stories=App\UserStory::all()->pluck('id')->toArray();
+$status=array('TODO,ON GOING,DONE');
+  return [
+'name'=>$faker->word,
+'description'=>$faker->paragraph,
+'status'=>$status[array_rand($status)],
+'commit'=>$faker->word,
+'priority'=>$faker->randomDigitNotNull,
+'cost'=>$faker->randomFloat($nbMaxDecimals = NULL, $min = 0, $max = NULL),
+'date_begin'=>$faker->date($format = 'Y-m-d', $max = 'now'),
+'date_estimated'=>$faker->date($format = 'Y-m-d', $max = 'now'),
+'date_finished'=>$faker->date($format = 'Y-m-d', $max = 'now'),
+  'user_story_id'=>$user_stories[array_rand($user_stories)],
+  ];
+});
+$factory->define(App\Layout::class,function(Faker\Generator $faker){
+$sprints=App\Sprint::all()->pluck('id')->toArray();
+return [
+  'name'=>$faker->name,
+  'position'=>$faker->randomDigitNotNull,
+  'sprint_id'=>$sprints[array_rand($sprints)]
+];
+
+});
