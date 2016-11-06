@@ -285,7 +285,9 @@
 
         addproj: function(){
             this.addNewRequest.user_id=this.user;
-            this.$http.post('/api/project/add',this.addNewRequest);
+            this.$http.post('/api/project/add',this.addNewRequest).then(function(response){
+                console.log(response);
+            });
             this.addNewRequest = {
                  name: '',
                  user_id: '',

@@ -45,13 +45,16 @@ Route::group(['middleware' => 'api'], function() {
          App\Project::find($projectid)->delete();
     });
     Route::post('project/add', function(Request $request) {
-        App\Project::create([
+        $project = App\Project::create([
             'name' => $request->name,
             'user_id' => $request->user_id,
             'description' => $request->description,
             'language' => $request->language,
             'version' => $request->version,
         ]);
+        $backlog = App\Backlog::create(['project_id' => $project->id,]);
+        return $backlog;
+
 
     });
     Route::get('getownproject/{id}/{search?}', function($id, $search = null) {
