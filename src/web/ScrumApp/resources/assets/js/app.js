@@ -34,6 +34,7 @@ Vue.component('adduser', require('./components/AddUserForm.vue'));
 Vue.component('modal', require('./components/modal.vue'));
 Vue.component('backlog', require('./components/backlog.vue'));
 Vue.component('createus', require('./components/createUs.vue'));
+Vue.component('createtask', require('./components/createtask.vue'));
 // Vue.component('members', require('./components/Members.vue'));
 
 const app = new Vue({
@@ -50,4 +51,8 @@ const backlog = new Vue({
 
 const projects = new Vue({
     el: '#projects'
+});
+
+const createtask = new Vue({
+    el: '#createtask'
 });
