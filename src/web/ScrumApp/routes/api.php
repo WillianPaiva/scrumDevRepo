@@ -135,9 +135,9 @@ Route::group(['middleware' => 'api'], function() {
         return Response::json(App\Project::find($id));
     });
 
-    Route::get('backlog/{id}', function($id) {
+    Route::get('backlog/{id}/{order}', function($id, $order) {
         $project = App\Project::find($id);
-        return Response::json($project->UserStorys()->get());
+        return Response::json($project->UserStorys()->orderBy($order)->get());
     });
 });
 

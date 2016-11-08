@@ -6,12 +6,29 @@
                 <div class="col-md-9">
                     <div class="panel panel-default">
                         <div class="panel-heading clearfix">
-                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">
-                                {{ project.name }}
-                            </h4>
-                            <button class="btn btn-success pull-right" v-on:click="showAddUs = true">
-                                <i class="fa fa-plus"></i>
-                            </button>
+                            <div class="container-fluid panel-container">
+                                <div class="col-xs-3 text-left">
+                                    <h4 class="panel-title abc">
+                                        {{ project.name }}
+                                    </h4>
+                                </div>
+
+
+                             <div class="col-xs-6 text-center ">
+                                 <select  v-model="order" class="abc">
+                                     <option value="created_at">created</option>
+                                     <option value="effort">effort</option>
+                                     <option value="priority">priority</option>
+                                 </select>
+                             </div>
+
+                             <div class="col-xs-3 text-right">
+                                 <button class="btn btn-success pull-right" v-on:click="showAddUs = true">
+                                     <i class="fa fa-plus"></i>
+                                 </button>
+                             </div>
+
+                            </div>
                         </div>
                         <div class="panel-body">
                             <div class="well">
@@ -70,6 +87,7 @@
  export default{
      data(){
          return{
+             order: 'created_at',
              project:{},
              userstory:[],
              showAddUs: false,
@@ -88,13 +106,18 @@
              }
          }
      },
+     watch: {
+         order: function(){
+             this.fetch();
+         }
+     },
      props:['id'],
      mounted(){
          this.fetch();
      },
      methods:{
          fetch: function(){
-             this.$http.get('/api/backlog/'+this.id).then(function(response){
+             this.$http.get('/api/backlog/'+this.id+'/'+this.order).then(function(response){
                  this.userstory = response.data;
              });
              this.$http.get('/api/project/'+this.id).then(function(response){
@@ -123,5 +146,15 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.panel-container {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    height:35px;
+}
+.abc{
+    height:35px;
+      display:table-cell !important;
+      vertical-align:middle;
 }
  </style>
