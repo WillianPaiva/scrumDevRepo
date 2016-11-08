@@ -128,7 +128,9 @@
              return !(this.userstory.length > 0);
          },
          deleteUs: function(item){
-             this.$http.post('/api/us/delete/'+item.id);
+             this.$http.post('/api/us/delete/'+item.id).then(function(response){
+                 console.log(response);
+             });
              this.fetch();
          },
          close: function(){

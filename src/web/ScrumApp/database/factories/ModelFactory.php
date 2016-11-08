@@ -31,7 +31,7 @@ $factory->define(App\Project::class, function (Faker\Generator $faker) {
 
 
     return [
-        'name' => $faker->name,
+        'name' => $faker->word,
         'user_id' => $user[array_rand($user)],
         'description' => $faker->paragraph,
         'language' => $lang[array_rand($lang)],
