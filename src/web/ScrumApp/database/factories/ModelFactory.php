@@ -80,6 +80,7 @@ $user_stories=App\UserStory::all()->pluck('id')->toArray();
 $status=array('TODO,ON GOING,DONE');
   return [
 'name'=>$faker->word,
+'number'=>$faker->randomDigit,
 'description'=>$faker->paragraph,
 'status'=>$status[array_rand($status)],
 'commit'=>$faker->word,
