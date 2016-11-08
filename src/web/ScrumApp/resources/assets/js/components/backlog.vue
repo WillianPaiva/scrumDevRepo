@@ -6,12 +6,29 @@
                 <div class="col-md-9">
                     <div class="panel panel-default">
                         <div class="panel-heading clearfix">
-                            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">
-                                {{ project.name }}
-                            </h4>
-                            <button class="btn btn-success pull-right" v-on:click="showAddUs = true">
-                                <i class="fa fa-plus"></i>
-                            </button>
+                            <div class="container-fluid panel-container">
+                                <div class="col-xs-3 text-left">
+                                    <h4 class="panel-title abc">
+                                        {{ project.name }}
+                                    </h4>
+                                </div>
+
+
+                             <div class="col-xs-6 text-center ">
+                                 <select  v-model="order" class="soflow">
+                                     <option value="created_at">created</option>
+                                     <option value="effort">effort</option>
+                                     <option value="priority">priority</option>
+                                 </select>
+                             </div>
+
+                             <div class="col-xs-3 text-right">
+                                 <button class="btn btn-success pull-right" v-on:click="showAddUs = true">
+                                     <i class="fa fa-plus"></i>
+                                 </button>
+                             </div>
+
+                            </div>
                         </div>
                         <div class="panel-body">
                             <div class="well">
@@ -60,60 +77,17 @@
             </div>
         </div>
 
+        <createus v-bind:boolShow="showAddUs" :id="id" @close="close()"></createus>
 
 
 
-
-        <div class="container">
-            <modal title="Create New Project"
-                   :show.sync="showAddUs"
-                   :okText="'Create'"
-                   :okClass="'btn btn-success'"
-                   :cancelClass="'btn btn-danger'"
-                   @ok="createUs"
-                   @cancel="cancel">
-
-
-                <form class="form-horizontal" >
-                    <div class="form-group">
-                        <label for="name"  class="col-md-4 control-label">description</label>
-                        <div class="col-md-6">
-                            <textarea id="name" v-model="userStoryRequest.description"
-                                      type="text" class="form-control" name="name" required /></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="name"  class="col-md-4 control-label">effort</label>
-                        <div class="col-md-2">
-                            <select class="form-control" v-model="userStoryRequest.effort" required>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="5">5</option>
-                                <option value="8">8</option>
-                                <option value="13">13</option>
-                                <option value="21">21</option>
-                                <option value="34">34</option>
-                                <option value="55">55</option>
-                                <option value="89">89</option>
-                            </select>
-                        </div>
-                        <label for="name"  class="col-md-2 control-label">priority</label>
-                        <div class="col-md-2">
-                            <input id="name" v-model="userStoryRequest.priority"
-                                   type="number" class="form-control" name="name" required />
-                        </div>
-                    </div>
-                </form>
-            </modal>
-        </div>
     </div>
 </template>
 <script>
  export default{
      data(){
          return{
+             order: 'created_at',
              project:{},
              userstory:[],
              showAddUs: false,
@@ -132,13 +106,18 @@
              }
          }
      },
+     watch: {
+         order: function(){
+             this.fetch();
+         }
+     },
      props:['id'],
      mounted(){
          this.fetch();
      },
      methods:{
          fetch: function(){
-             this.$http.get('/api/backlog/'+this.id).then(function(response){
+             this.$http.get('/api/backlog/'+this.id+'/'+this.order).then(function(response){
                  this.userstory = response.data;
              });
              this.$http.get('/api/project/'+this.id).then(function(response){
@@ -148,37 +127,20 @@
          isEmpty: function(){
              return !(this.userstory.length > 0);
          },
-         createUs: function(){
-             this.userStoryRequest.project_id = this.id;
-             this.$http.post('/api/us/add', this.userStoryRequest);
-             this.userStoryRequest = {
-                 id: '',
-                 description: '',
-                 status: '',
-                 commit: '',
-                 date_begin: '',
-                 date_estimated: '',
-                 date_finished: '',
-                 effort: '',
-                 priority: '',
-                 project_id: '',
-                 sprint_id: ''
-             }
-             this.fetch();
-             this.showAddUs = false;
-         },
-         cancel: function(){
-             this.showAddUs = false;
-         },
          deleteUs: function(item){
-             this.$http.post('/api/us/delete/'+item.id);
+             this.$http.post('/api/us/delete/'+item.id).then(function(response){
+                 console.log(response);
+             });
              this.fetch();
          },
-
+         close: function(){
+             this.showAddUs = false;
+             this.fetch();
+             }
+     }
 
      }
 
- }
 </script>
 <style>
 .truncate {
@@ -187,4 +149,35 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.panel-container {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    height:35px;
+}
+.abc{
+    height:35px;
+      display:table-cell !important;
+      vertical-align:middle;
+}
+.soflow {
+   -webkit-appearance: button;
+   -webkit-border-radius: 2px;
+   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+   -webkit-padding-end: 20px;
+   -webkit-padding-start: 2px;
+   -webkit-user-select: none;
+   background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+   background-position: 97% center;
+   background-repeat: no-repeat;
+   border: 1px solid #AAA;
+   color: #555;
+   font-size: inherit;
+   margin: 5px;
+   overflow: hidden;
+   padding: 5px 10px;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   width: 300px;
+}
+
  </style>
