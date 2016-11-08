@@ -57,7 +57,7 @@
              date_begin: '',
              date_estimated: '',
              date_finished: '',
-             effort: '0',
+             effort: '1',
              priority: '0',
              project_id: '',
              sprint_id: ''
