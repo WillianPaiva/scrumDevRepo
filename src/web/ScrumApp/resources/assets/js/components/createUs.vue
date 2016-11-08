@@ -46,11 +46,11 @@
 </template>
 <script>
  export default{
- props: ['boolShow', 'id'],
+ props: ['boolShow', 'id', 'nb'],
  data(){
      return {
          userStoryRequest:{
-             id: '',
+             number: 1,
              description: '',
              status: '',
              commit: '',
@@ -67,17 +67,20 @@
      methods:{
          createUs: function(){
              this.userStoryRequest.project_id = this.id;
+             this.userStoryRequest.number = this.nb;
              this.$http.post('/api/us/add', this.userStoryRequest);
+
+             console.log(this.userStoryRequest);
              this.userStoryRequest = {
-                 id: '',
+                 number: '',
                  description: '',
                  status: '',
                  commit: '',
                  date_begin: '',
                  date_estimated: '',
                  date_finished: '',
-                 effort: '',
-                 priority: '',
+                 effort: '1',
+                 priority: '0',
                  project_id: '',
                  sprint_id: ''
              }

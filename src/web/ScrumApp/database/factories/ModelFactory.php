@@ -61,6 +61,7 @@ $projects=App\Project::all()->pluck('id')->toArray();
 $status=array('TODO','ON GOING','DONE');
 return[
   'description'=>$faker->paragraph,
+  'number'=>$faker->randomDigit,
   'status'=>$status[array_rand($status)],
   'commit'=>$faker->word,
   'date_begin'=>$faker->date($format = 'Y-m-d', $max = 'now'),

@@ -38,7 +38,11 @@
                                 <ul class="list-group">
                                     <li class="list-group-item clearfix" style="" v-for="item in userstory">
                                         <p style="top:15%;" class="truncate">
-                                            {{ item.description }}
+
+                                            <label class="label label-warning" style="margin-right: 7px;">
+                                                US#{{item.number}}
+                                            </label>
+                                               {{ item.description }}
                                         </p>
                                         <div>
                                             <label class="label label-success">
@@ -77,7 +81,7 @@
             </div>
         </div>
 
-        <createus v-bind:boolShow="showAddUs" :id="id" @close="close()"></createus>
+        <createus v-bind:boolShow="showAddUs" :id="id" @close="close()" :nb="getNb()"></createus>
 
 
 
@@ -91,19 +95,6 @@
              project:{},
              userstory:[],
              showAddUs: false,
-             userStoryRequest:{
-                 id: '',
-                 description: '',
-                 status: '',
-                 commit: '',
-                 date_begin: '',
-                 date_estimated: '',
-                 date_finished: '',
-                 effort: '0',
-                 priority: '0',
-                 project_id: '',
-                 sprint_id: ''
-             }
          }
      },
      watch: {
@@ -136,6 +127,9 @@
          close: function(){
              this.showAddUs = false;
              this.fetch();
+             },
+         getNb: function(){
+             return this.userstory.length + 1;
              }
      }
 
@@ -179,5 +173,8 @@
    white-space: nowrap;
    width: 300px;
 }
+ .mg{
+     margin: 3px;
+ }
 
  </style>
