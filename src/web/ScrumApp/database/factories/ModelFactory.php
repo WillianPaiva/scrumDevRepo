@@ -48,6 +48,7 @@ return [
 $factory->define(App\Sprint::class,function(Faker\Generator $faker){
   return [
     'name'=>$faker->word,
+    'number'=>$faker->randomDigit,
     'date_begin'=>$faker->date($format = 'Y-m-d', $max = 'now'),
     'date_estimated'=>$faker->date($format = 'Y-m-d', $max = 'now'),
   ];
