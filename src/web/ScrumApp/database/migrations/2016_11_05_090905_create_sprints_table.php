@@ -15,7 +15,6 @@ class CreateSprintsTable extends Migration
     {
         Schema::create('sprints', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('number');
             $table->string('name');
             $table->date('date_begin');
             $table->date('date_estimated');

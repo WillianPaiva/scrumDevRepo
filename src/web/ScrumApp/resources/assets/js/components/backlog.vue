@@ -36,11 +36,11 @@
                                     <h1>backlog is empty</h1>
                                 </div>
                                 <ul class="list-group">
-                                    <li class="list-group-item clearfix" style="" v-for="item in userstory">
+                                    <li class="list-group-item clearfix" style="" v-for="(item , index) in userstory">
                                         <p style="top:15%;" class="truncate">
 
                                             <label class="label label-warning" style="margin-right: 7px;">
-                                                US#{{item.number}}
+                                                US#{{index+1}}
                                             </label>
                                                {{ item.description }}
                                         </p>
@@ -52,6 +52,18 @@
                                             <label class="label label-info">
                                                 Priority
                                                 <span class="badge">{{ item.priority }}</span> 
+                                            </label>
+                                                <label class="label label-danger" v-if="item.sprint_id > 0" style="margin-right: 7px;" >
+
+                                                sprint#{{ item.sprint_id }}
+                                            </label>
+
+                                            <label class="label label-success" v-if="item.date_estimated != null" style="margin-right: 7px;" >
+                                                begin {{ item.date_begin }}
+                                            </label>
+                                            
+                                            <label class="label label-info" v-if="item.date_estimated !=null" style="margin-right: 7px;" >
+                                                expected {{ item.date_estimated }}
                                             </label>
                                         <button class="btn btn-danger pull-right" v-on:click="deleteUs(item)"><span class="fa fa-trash"></span></button>
                                         </div>
@@ -81,7 +93,7 @@
             </div>
         </div>
 
-        <createus v-bind:boolShow="showAddUs" :id="id" @close="close()" :nb="getNb()"></createus>
+        <createus v-bind:boolShow="showAddUs" :id="id" @close="close()"></createus>
 
 
 
@@ -95,6 +107,7 @@
              project:{},
              userstory:[],
              showAddUs: false,
+
          }
      },
      watch: {
@@ -108,6 +121,7 @@
      },
      methods:{
          fetch: function(){
+
              this.$http.get('/api/backlog/'+this.id+'/'+this.order).then(function(response){
                  this.userstory = response.data;
              });
@@ -128,9 +142,6 @@
              this.showAddUs = false;
              this.fetch();
              },
-         getNb: function(){
-             return this.userstory.length + 1;
-             }
      }
 
      }

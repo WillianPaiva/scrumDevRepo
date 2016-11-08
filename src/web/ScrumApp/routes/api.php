@@ -61,7 +61,6 @@ Route::group(['middleware' => 'api'], function() {
     Route::post('us/add', function(Request $request) {
         $us = App\UserStory::create([
             'description' => $request->description,
-            'number' => $request->number,
             'status' => null,
             'commit' => null,
             'date_begin' => null,

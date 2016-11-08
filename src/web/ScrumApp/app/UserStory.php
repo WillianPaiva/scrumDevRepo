@@ -10,7 +10,6 @@ class UserStory extends Model
 
     protected $fillable = [
         'id',
-        'number',
         'description',
         'status',
         'commit',

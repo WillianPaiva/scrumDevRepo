@@ -15,7 +15,6 @@ class CreateUserStoriesTable extends Migration
     {
         Schema::create('user_stories', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('number');
             $table->string('description');
             $table->string('status')->nullable();
             $table->string('commit')->nullable();

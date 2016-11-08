@@ -48,7 +48,6 @@ return [
 $factory->define(App\Sprint::class,function(Faker\Generator $faker){
   return [
     'name'=>$faker->word,
-    'number'=>$faker->randomDigit,
     'date_begin'=>$faker->date($format = 'Y-m-d', $max = 'now'),
     'date_estimated'=>$faker->date($format = 'Y-m-d', $max = 'now'),
   ];
@@ -61,7 +60,6 @@ $projects=App\Project::all()->pluck('id')->toArray();
 $status=array('TODO','ON GOING','DONE');
 return[
   'description'=>$faker->paragraph,
-  'number'=>$faker->randomDigit,
   'status'=>$status[array_rand($status)],
   'commit'=>$faker->word,
   'date_begin'=>$faker->date($format = 'Y-m-d', $max = 'now'),
@@ -80,7 +78,6 @@ $user_stories=App\UserStory::all()->pluck('id')->toArray();
 $status=array('TODO,ON GOING,DONE');
   return [
 'name'=>$faker->word,
-'number'=>$faker->randomDigit,
 'description'=>$faker->paragraph,
 'status'=>$status[array_rand($status)],
 'commit'=>$faker->word,
