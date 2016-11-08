@@ -60,54 +60,10 @@
             </div>
         </div>
 
+        <createus v-bind:boolShow="showAddUs" :id="id" @close="close()"></createus>
 
 
 
-
-        <div class="container">
-            <modal title="Create New Project"
-                   :show.sync="showAddUs"
-                   :okText="'Create'"
-                   :okClass="'btn btn-success'"
-                   :cancelClass="'btn btn-danger'"
-                   @ok="createUs"
-                   @cancel="cancel">
-
-
-                <form class="form-horizontal" >
-                    <div class="form-group">
-                        <label for="name"  class="col-md-4 control-label">description</label>
-                        <div class="col-md-6">
-                            <textarea id="name" v-model="userStoryRequest.description"
-                                      type="text" class="form-control" name="name" required /></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="name"  class="col-md-4 control-label">effort</label>
-                        <div class="col-md-2">
-                            <select class="form-control" v-model="userStoryRequest.effort" required>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="5">5</option>
-                                <option value="8">8</option>
-                                <option value="13">13</option>
-                                <option value="21">21</option>
-                                <option value="34">34</option>
-                                <option value="55">55</option>
-                                <option value="89">89</option>
-                            </select>
-                        </div>
-                        <label for="name"  class="col-md-2 control-label">priority</label>
-                        <div class="col-md-2">
-                            <input id="name" v-model="userStoryRequest.priority"
-                                   type="number" class="form-control" name="name" required />
-                        </div>
-                    </div>
-                </form>
-            </modal>
-        </div>
     </div>
 </template>
 <script>
@@ -148,37 +104,18 @@
          isEmpty: function(){
              return !(this.userstory.length > 0);
          },
-         createUs: function(){
-             this.userStoryRequest.project_id = this.id;
-             this.$http.post('/api/us/add', this.userStoryRequest);
-             this.userStoryRequest = {
-                 id: '',
-                 description: '',
-                 status: '',
-                 commit: '',
-                 date_begin: '',
-                 date_estimated: '',
-                 date_finished: '',
-                 effort: '',
-                 priority: '',
-                 project_id: '',
-                 sprint_id: ''
-             }
-             this.fetch();
-             this.showAddUs = false;
-         },
-         cancel: function(){
-             this.showAddUs = false;
-         },
          deleteUs: function(item){
              this.$http.post('/api/us/delete/'+item.id);
              this.fetch();
          },
-
+         close: function(){
+             this.showAddUs = false;
+             this.fetch();
+             }
+     }
 
      }
 
- }
 </script>
 <style>
 .truncate {
