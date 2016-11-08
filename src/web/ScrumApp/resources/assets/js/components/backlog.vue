@@ -40,7 +40,7 @@
                                         <p style="top:15%;" class="truncate">
 
                                             <label class="label label-warning" style="margin-right: 7px;">
-                                                US#{{index+1}}
+                                                US#{{getIndex(item.id)}}
                                             </label>
                                                {{ item.description }}
                                         </p>
@@ -106,6 +106,7 @@
              order: 'created_at',
              project:{},
              userstory:[],
+             ids:[],
              showAddUs: false,
 
          }
@@ -125,6 +126,14 @@
              this.$http.get('/api/backlog/'+this.id+'/'+this.order).then(function(response){
                  this.userstory = response.data;
              });
+             this.$http.get('/api/backlog/'+this.id+'/created_at').then(function(response){
+
+                 this.ids= []
+                 for(var i =0; i < response.data.length; i++){
+                     this.ids.push(response.data[i].id);
+                     }
+
+             });
              this.$http.get('/api/project/'+this.id).then(function(response){
                  this.project = response.data;
              });
@@ -142,6 +151,10 @@
              this.showAddUs = false;
              this.fetch();
              },
+
+         getIndex: function(item){
+             return this.ids.indexOf(item);
+         },
      }
 
      }
