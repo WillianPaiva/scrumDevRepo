@@ -78,9 +78,9 @@ export default{
 
         },
         editUs: function(){
-            this.update();
             this.$http.post('/api/us/edit',this.editUserStoryRequest);
-            this.$emit('close');
+            this.boolShow = false;
+            this.$emit('ok');
 
         },
 

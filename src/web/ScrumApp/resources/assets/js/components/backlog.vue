@@ -99,7 +99,7 @@
 
         <createus v-bind:boolShow="showAddUs" :id="id" @close="close()"></createus>
         <showus v-bind:boolShow="showUs" :nb="usnb" :id="actual_us_id" @close="close()"></showus> 
-        <editus  v-bind:boolShow="showEditUs" :id="idTosend" @close="close()" @update="update()"></editus>
+        <editus  v-bind:boolShow="showEditUs" :id="idTosend" @close="close()" @ok="update()"></editus>
 
 
     </div>
@@ -163,6 +163,11 @@
          close: function(){
              this.showAddUs = false;
              this.showUs = false;
+             this.showEditUs=false;
+             this.fetch();
+             },
+
+         update: function(){
              this.showEditUs=false;
              this.fetch();
              },
