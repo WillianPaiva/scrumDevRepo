@@ -14,4 +14,9 @@ class Sprint extends Model
     {
         return $this->hasMany('App\Layout');
     }
+
+    public function project()
+    {
+        return $this->belongsTo('App\Project');
+    }
 }

@@ -30,4 +30,9 @@ class Project extends Model
     {
         return $this->hasMany('App\UserStory');
     }
+
+    public function sprints()
+    {
+        return $this->hasMany('App\Sprints');
+    }
 }
