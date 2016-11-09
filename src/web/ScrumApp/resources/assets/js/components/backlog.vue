@@ -47,11 +47,11 @@
                                         <div>
                                             <label class="label label-success">
                                                 Effort
-                                                <span class="badge">{{ item.effort }}</span> 
+                                                <span class="badge">{{ item.effort }}</span>
                                             </label>
                                             <label class="label label-info">
                                                 Priority
-                                                <span class="badge">{{ item.priority }}</span> 
+                                                <span class="badge">{{ item.priority }}</span>
                                             </label>
                                                 <label class="label label-danger" v-if="item.sprint_id > 0" style="margin-right: 7px;" >
 
@@ -61,11 +61,12 @@
                                             <label class="label label-success" v-if="item.date_estimated != null" style="margin-right: 7px;" >
                                                 begin {{ item.date_begin }}
                                             </label>
-                                            
+
                                             <label class="label label-info" v-if="item.date_estimated !=null" style="margin-right: 7px;" >
                                                 expected {{ item.date_estimated }}
                                             </label>
                                         <button class="btn btn-danger pull-right" v-on:click="deleteUs(item)"><span class="fa fa-trash"></span></button>
+                                        <button class="btn btn-info pull-right" v-on:click="getUs(item)" ><span class="fa fa-pencil-square-o"></span></button>
                                         </div>
                                     </li>
                                 </ul>
@@ -77,7 +78,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">
-                                Sprints 
+                                Sprints
                             </h4>
                             <button class="btn btn-success pull-right" >
                                 <i class="fa fa-plus"></i>
@@ -94,6 +95,7 @@
         </div>
 
         <createus v-bind:boolShow="showAddUs" :id="id" @close="close()"></createus>
+        <editus  v-bind:boolShow="showEditUs" :id="idTosend" @close="close()" @update="update()"></editus>
 
 
 
@@ -105,10 +107,11 @@
          return{
              order: 'created_at',
              project:{},
+             idTosend:1,
              userstory:[],
              ids:[],
              showAddUs: false,
-
+             showEditUs:false,
          }
      },
      watch: {
@@ -147,8 +150,14 @@
              });
              this.fetch();
          },
+         getUs: function (item){
+            console.log('the id that should be passed'+item.id);
+            this.idTosend=item.id;
+            this.showEditUs=true;
+        },
          close: function(){
              this.showAddUs = false;
+             this.showEditUs=false;
              this.fetch();
              },
 

@@ -35,6 +35,7 @@ Vue.component('modal', require('./components/modal.vue'));
 Vue.component('backlog', require('./components/backlog.vue'));
 Vue.component('createus', require('./components/createUs.vue'));
 Vue.component('createtask', require('./components/createtask.vue'));
+Vue.component('editus',require('./components/editus.vue'));
 // Vue.component('members', require('./components/Members.vue'));
 
 const app = new Vue({
