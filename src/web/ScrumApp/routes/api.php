@@ -141,7 +141,7 @@ Route::group(['middleware' => 'api'], function() {
         return Response::json($project->UserStorys()->orderBy($order)->get());
     });
     Route::get('us/{id}',function($id) {
-    return Response::json(App\UserStory::find($id)->get());
+        return Response::json(App\UserStory::find($id));
 });
 Route::post('us/edit/',function(Request $request){
     $US=App\UserStory::find($request->id);

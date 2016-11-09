@@ -47,9 +47,6 @@
 <script>
 export default{
     props: ['boolShow', 'id'],
-    mounted(){
-
-    },
     watch: {
         boolShow: function(){
             this.update();
@@ -66,7 +63,7 @@ export default{
                 date_begin: '',
                 date_estimated: '',
                 date_finished: '',
-                effort: '0',
+                effort: '1',
                 priority: '0',
                 project_id: '',
                 sprint_id: ''
@@ -76,23 +73,12 @@ export default{
     methods:{
         update: function(){
             this.$http.get('/api/us/'+this.id).then(function(response){
-                this.userstory=response.data;
-                var i=0;
-                for (i=0;i<this.userstory.length;i++)
-                if (this.userstory[i].id==this.id)
-                {
-                    this.editUserStoryRequest.id=this.userstory[i].id;
-                    this.editUserStoryRequest.effort=this.userstory[i].effort;
-                    this.editUserStoryRequest.description=this.userstory[i].description;
-                    this.editUserStoryRequest.project_id=this.userstory[i].project_id;
-                }
-
+                this.editUserStoryRequest=response.data;
             });
 
         },
         editUs: function(){
             this.update();
-            console.log('do i have the editrqst'+this.editUserStoryRequest.id);
             this.$http.post('/api/us/edit',this.editUserStoryRequest);
             this.$emit('close');
 

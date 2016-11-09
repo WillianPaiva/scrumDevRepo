@@ -157,7 +157,6 @@
              this.fetch();
          },
          getUs: function (item){
-            console.log('the id that should be passed'+item.id);
             this.idTosend=item.id;
             this.showEditUs=true;
         },
@@ -174,7 +173,6 @@
          openus: function(item){
              this.actual_us_id = item.id;
              this.usnb = this.getIndex(item.id);
-             console.log(this.usnb);
              this.showUs = true;
         },
 
