@@ -18,6 +18,12 @@ Route::group(['middleware' => 'api'], function() {
         $project = App\Project::find($id);
         return $project->members()->get();
     });
+
+    Route::get('us/{id}', function($id) {
+
+        $us = App\UserStory::find($id);
+        return Response::json($us);
+    });
     Route::get('userlist', function(Request $request) {
 
         $term = $request->q;

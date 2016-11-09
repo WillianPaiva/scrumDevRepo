@@ -36,7 +36,9 @@
                                     <h1>backlog is empty</h1>
                                 </div>
                                 <ul class="list-group">
-                                    <li class="list-group-item clearfix" style="" v-for="(item , index) in userstory">
+                                    <li class="list-group-item clearfix"
+                                        v-for="(item , index) in userstory"
+                                    >
                                         <p style="top:15%;" class="truncate">
 
                                             <label class="label label-warning" style="margin-right: 7px;">
@@ -61,11 +63,13 @@
                                             <label class="label label-success" v-if="item.date_estimated != null" style="margin-right: 7px;" >
                                                 begin {{ item.date_begin }}
                                             </label>
-                                            
                                             <label class="label label-info" v-if="item.date_estimated !=null" style="margin-right: 7px;" >
                                                 expected {{ item.date_estimated }}
                                             </label>
-                                        <button class="btn btn-danger pull-right" v-on:click="deleteUs(item)"><span class="fa fa-trash"></span></button>
+
+                                            <button class="btn btn-danger pull-right" v-on:click="deleteUs(item)"><span class="fa fa-trash"></span></button>
+
+                                            <button class="btn btn-info pull-right" v-on:click="openus(item)"><span class="fa fa-gear"></span></button>
                                         </div>
                                     </li>
                                 </ul>
@@ -94,7 +98,7 @@
         </div>
 
         <createus v-bind:boolShow="showAddUs" :id="id" @close="close()"></createus>
-
+        <showus v-bind:boolShow="showUs" :nb="usnb" :id="actual_us_id" @close="close()"></showus> 
 
 
     </div>
@@ -108,6 +112,9 @@
              userstory:[],
              ids:[],
              showAddUs: false,
+             showUs: false,
+             actual_us_is: '',
+             usnb: '',
 
          }
      },
@@ -149,12 +156,21 @@
          },
          close: function(){
              this.showAddUs = false;
+
+             this.showUs = false;
              this.fetch();
              },
 
          getIndex: function(item){
              return this.ids.indexOf(item);
          },
+         openus: function(item){
+             this.actual_us_id = item.id;
+             this.usnb = this.getIndex(item.id);
+             console.log(this.usnb);
+             this.showUs = true;
+        },
+
      }
 
      }
