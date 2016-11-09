@@ -19,11 +19,6 @@ Route::group(['middleware' => 'api'], function() {
         return $project->members()->get();
     });
 
-    Route::get('us/{id}', function($id) {
-
-        $us = App\UserStory::find($id);
-        return Response::json($us);
-    });
     Route::get('userlist', function(Request $request) {
 
         $term = $request->q;
@@ -145,5 +140,21 @@ Route::group(['middleware' => 'api'], function() {
         $project = App\Project::find($id);
         return Response::json($project->UserStorys()->orderBy($order)->get());
     });
+    Route::get('us/{id}',function($id) {
+    return Response::json(App\UserStory::find($id)->get());
 });
-
+Route::post('us/edit/',function(Request $request){
+    $US=App\UserStory::find($request->id);
+    $US->description=$request->description;
+    $US->status=$request->status;
+    $US->commit=$request->commit;
+    $US->date_begin=$request->date_begin;
+    $US->date_estimated=$request->date_estimated;
+    $US->date_finished=$request->date_finished;
+    $US->effort=$request->effort;
+    $US->priority=$request->priority;
+    $US->project_id=$request->project_id;
+    $US->sprint_id=$request->sprint_id;
+    $US->save();
+});
+});

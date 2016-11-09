@@ -49,11 +49,11 @@
                                         <div>
                                             <label class="label label-success">
                                                 Effort
-                                                <span class="badge">{{ item.effort }}</span> 
+                                                <span class="badge">{{ item.effort }}</span>
                                             </label>
                                             <label class="label label-info">
                                                 Priority
-                                                <span class="badge">{{ item.priority }}</span> 
+                                                <span class="badge">{{ item.priority }}</span>
                                             </label>
                                                 <label class="label label-danger" v-if="item.sprint_id > 0" style="margin-right: 7px;" >
 
@@ -68,8 +68,8 @@
                                             </label>
 
                                             <button class="btn btn-danger pull-right" v-on:click="deleteUs(item)"><span class="fa fa-trash"></span></button>
-
                                             <button class="btn btn-info pull-right" v-on:click="openus(item)"><span class="fa fa-gear"></span></button>
+                                        <button class="btn btn-info pull-right" v-on:click="getUs(item)" ><span class="fa fa-pencil-square-o"></span></button>
                                         </div>
                                     </li>
                                 </ul>
@@ -81,7 +81,7 @@
                     <div class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">
-                                Sprints 
+                                Sprints
                             </h4>
                             <button class="btn btn-success pull-right" >
                                 <i class="fa fa-plus"></i>
@@ -99,6 +99,7 @@
 
         <createus v-bind:boolShow="showAddUs" :id="id" @close="close()"></createus>
         <showus v-bind:boolShow="showUs" :nb="usnb" :id="actual_us_id" @close="close()"></showus> 
+        <editus  v-bind:boolShow="showEditUs" :id="idTosend" @close="close()" @update="update()"></editus>
 
 
     </div>
@@ -109,13 +110,14 @@
          return{
              order: 'created_at',
              project:{},
+             idTosend:1,
              userstory:[],
              ids:[],
              showAddUs: false,
              showUs: false,
              actual_us_is: '',
              usnb: '',
-
+             showEditUs:false,
          }
      },
      watch: {
@@ -154,10 +156,15 @@
              });
              this.fetch();
          },
+         getUs: function (item){
+            console.log('the id that should be passed'+item.id);
+            this.idTosend=item.id;
+            this.showEditUs=true;
+        },
          close: function(){
              this.showAddUs = false;
-
              this.showUs = false;
+             this.showEditUs=false;
              this.fetch();
              },
 
