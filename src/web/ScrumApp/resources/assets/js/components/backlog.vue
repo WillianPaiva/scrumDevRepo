@@ -68,7 +68,7 @@
                                             </label>
 
                                             <button class="btn btn-danger pull-right" v-on:click="deleteUs(item)"><span class="fa fa-trash"></span></button>
-                                            <button class="btn btn-info pull-right" v-on:click="openus(item)"><span class="fa fa-gear"></span></button>
+                                            <a class="btn btn-info pull-right" :href="openus(item)"><span class="fa fa-gear"></span></a>
                                         <button class="btn btn-info pull-right" v-on:click="getUs(item)" ><span class="fa fa-pencil-square-o"></span></button>
                                         </div>
                                     </li>
@@ -98,7 +98,6 @@
         </div>
 
         <createus v-bind:boolShow="showAddUs" :id="id" @close="close()"></createus>
-        <showus v-bind:boolShow="showUs" :nb="usnb" :id="actual_us_id" @close="close()"></showus> 
         <editus  v-bind:boolShow="showEditUs" :id="idTosend" @close="close()" @ok="update()"></editus>
 
 
@@ -114,9 +113,6 @@
              userstory:[],
              ids:[],
              showAddUs: false,
-             showUs: false,
-             actual_us_is: '',
-             usnb: '',
              showEditUs:false,
          }
      },
@@ -176,9 +172,7 @@
              return this.ids.indexOf(item);
          },
          openus: function(item){
-             this.actual_us_id = item.id;
-             this.usnb = this.getIndex(item.id);
-             this.showUs = true;
+             return '/userstory/'+item.id+'/'+this.getIndex(item.id);
         },
 
      }

@@ -1,12 +1,5 @@
 <template>
     <div class="container">
-        <modal title="Create New Project"
-               :show.sync="boolShow"
-               :okText="'Create'"
-               :okClass="'btn btn-success'"
-               :cancelClass="'btn btn-danger'"
-               @ok="ok"
-               @cancel="cancel">
             <div class="row">
                 <div class="col-md-12 col-md-offset-0">
                     <div class="panel panel-default">
@@ -30,20 +23,22 @@
                             <label class="col-md-4 control-label" for="">Description</label>
                         </br>
                             <div class="well">{{us.description}}</div>
-                            <label class="col-md-4 control-label" for=""></label>
-                            <div class="well">{{us.description}}</div>
+
+                            <label class="col-md-4 control-label" for="">Tasks</label>
+                        </br>
+                        <div class="well" v-if="isEmpty()"><h3>no tasks</h3></div>
                         </div>
 
                     </div>
                 </div>
             </div>
-        </modal>
     </div>
 </template>
 <script>
  export default{
      data(){
          return{
+             tasks:[],
              us:{
              description: '',
              status: '',
@@ -58,7 +53,7 @@
              }
          }
      },
-     props:['id','nb', 'boolShow'],
+     props:['id','nb'],
      mounted(){
          this.getUS();
          },
@@ -74,14 +69,9 @@
                  this.us = response.data;
              });
          },
-         ok: function(){
-             this.boolShow = false;
-             this.$emit('close');
-         },
-         cancel: function(){
-             this.boolShow = false;
-             this.$emit('close');
-         },
+         isEmpty: function(){
+             return !(this.tasks.length > 0)
+         }
      }
 
  }

@@ -51,6 +51,9 @@ const backlog = new Vue({
     el: '#backlog'
 });
 
+const userstory = new Vue({
+    el: '#userstory'
+});
 const projects = new Vue({
     el: '#projects'
 });
