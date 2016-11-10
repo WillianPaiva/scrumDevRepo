@@ -46,10 +46,13 @@ return [
 ];
   });
 $factory->define(App\Sprint::class,function(Faker\Generator $faker){
+  $projects=App\Project::all()->pluck('id')->toArray();
   return [
     'name'=>$faker->word,
     'date_begin'=>$faker->date($format = 'Y-m-d', $max = 'now'),
     'date_estimated'=>$faker->date($format = 'Y-m-d', $max = 'now'),
+    'project_id'=>$projects[array_rand($projects)],
+
   ];
 });
 

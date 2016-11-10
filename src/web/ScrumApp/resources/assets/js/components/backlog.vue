@@ -81,15 +81,38 @@
                     <div class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">
-                                Sprints
+                                Sprints 
                             </h4>
-                            <button class="btn btn-success pull-right" >
+                            <button class="btn btn-success pull-right" v-on:click="showAddSprint = true" >
                                 <i class="fa fa-plus"></i>
                             </button>
                         </div>
 
                         <div class="panel-body">
                             <div class="well">
+                                <div v-if="SprintisEmpty()">
+                                    <h1>No Sprints</h1>
+                                </div>
+                                    <ul class="list-group">
+                                        <li class="list-group-item clearfix" style="" v-for="item in sprint">
+                                            <p style="top:15%;" class="truncate">
+                                                {{ item.name }}
+                                            </p>
+                                            <div>
+                                                <label class="label label-info">
+                                                    Date Begin
+                                                    <span class="badge">{{ item.date_begin }}</span> 
+                                                </label>
+                                                <label class="label label-info">
+                                                    Date Estimated
+                                                    <span class="badge">{{ item.date_estimated }}</span> 
+                                                </label>
+                                                <br>
+                                                </br>
+                                                <button class="btn btn-danger pull-right" v-on:click="deleteSprint(item)"><span class="fa fa-trash"></span></button>
+                                            </div>
+                                        </li>
+                                    </ul>
                             </div>
                         </div>
                     </div>
@@ -99,6 +122,7 @@
 
         <createus v-bind:boolShow="showAddUs" :id="id" @close="close()"></createus>
         <editus  v-bind:boolShow="showEditUs" :id="idTosend" @close="close()" @ok="update()"></editus>
+        <createsprint v-bind:boolShow="showAddSprint" :id="id" @close="close()"></createsprint>
 
 
     </div>
@@ -114,6 +138,8 @@
              ids:[],
              showAddUs: false,
              showEditUs:false,
+             showAddSprint: false,
+
          }
      },
      watch: {
@@ -142,6 +168,10 @@
              this.$http.get('/api/project/'+this.id).then(function(response){
                  this.project = response.data;
              });
+
+            this.$http.get('/api/sprint/'+this.id).then(function(response){
+                 this.sprint = response.data;
+             });
          },
          isEmpty: function(){
              return !(this.userstory.length > 0);
@@ -156,10 +186,21 @@
             this.idTosend=item.id;
             this.showEditUs=true;
         },
+
+         SprintisEmpty: function(){
+             return !(this.sprint.length > 0);
+         },
+
+        deleteSprint: function(item){
+             this.$http.post('/api/sprint/delete/'+item.id);
+             this.fetch();
+         },
+
          close: function(){
              this.showAddUs = false;
              this.showUs = false;
              this.showEditUs=false;
+             this.showAddSprint = false;
              this.fetch();
              },
 

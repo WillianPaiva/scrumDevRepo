@@ -34,6 +34,7 @@ Vue.component('adduser', require('./components/AddUserForm.vue'));
 Vue.component('modal', require('./components/modal.vue'));
 Vue.component('backlog', require('./components/backlog.vue'));
 Vue.component('createus', require('./components/createUs.vue'));
+Vue.component('createsprint', require('./components/createSprint.vue'));
 Vue.component('createtask', require('./components/createtask.vue'));
 Vue.component('showus', require('./components/showUs.vue'));
 Vue.component('editus',require('./components/editus.vue'));

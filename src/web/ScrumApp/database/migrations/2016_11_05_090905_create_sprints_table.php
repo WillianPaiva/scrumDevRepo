@@ -19,7 +19,7 @@ class CreateSprintsTable extends Migration
             $table->date('date_begin');
             $table->date('date_estimated');
             $table->integer('project_id')->unsigned();
-            $table->foreign('project_id')->references('id')->on('projects');
+            $table->foreign('project_id')->references('id')->on('project')->onDelete('cascade');
             $table->timestamps();
         });
     }

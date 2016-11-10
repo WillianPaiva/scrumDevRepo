@@ -6,6 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class Sprint extends Model
 {
+
+        protected $fillable = [
+        'id',
+        'name',
+        'date_begin',
+        'date_estimated',
+        'project_id',
+
+    ];
+
+
     public function UserStorys()
     {
         return $this->hasMany('App\UserStory');

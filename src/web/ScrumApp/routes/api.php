@@ -48,6 +48,11 @@ Route::group(['middleware' => 'api'], function() {
     Route::post('us/delete/{id}', function($id) {
         App\UserStory::find($id)->delete();
     });
+
+    Route::post('sprint/delete/{id}', function($id) {
+        App\Sprint::find($id)->delete();
+    });
+
     Route::post('project/add', function(Request $request) {
         $project = App\Project::create([
             'name' => $request->name,
@@ -73,6 +78,17 @@ Route::group(['middleware' => 'api'], function() {
             'sprint_id' => null,
         ]);
         return $us;
+    });
+
+    Route::post('sprint/add', function(Request $request) {
+        $sprint = App\Sprint::create([
+            'id' => null,
+            'name' => $request->name,
+            'date_begin' => $request->date_begin,
+            'date_estimated' => $request->date_estimated,
+            'project_id' => $request->project_id,
+        ]);
+        return $sprint;
     });
 
     Route::get('getownproject/{id}/{search?}', function($id, $search = null) {
@@ -142,19 +158,24 @@ Route::group(['middleware' => 'api'], function() {
     });
     Route::get('us/{id}',function($id) {
         return Response::json(App\UserStory::find($id));
-});
-Route::post('us/edit/',function(Request $request){
-    $US=App\UserStory::find($request->id);
-    $US->description=$request->description;
-    $US->status=$request->status;
-    $US->commit=$request->commit;
-    $US->date_begin=$request->date_begin;
-    $US->date_estimated=$request->date_estimated;
-    $US->date_finished=$request->date_finished;
-    $US->effort=$request->effort;
-    $US->priority=$request->priority;
-    $US->project_id=$request->project_id;
-    $US->sprint_id=$request->sprint_id;
-    $US->save();
-});
+    });
+    Route::post('us/edit/',function(Request $request){
+        $US=App\UserStory::find($request->id);
+        $US->description=$request->description;
+        $US->status=$request->status;
+        $US->commit=$request->commit;
+        $US->date_begin=$request->date_begin;
+        $US->date_estimated=$request->date_estimated;
+        $US->date_finished=$request->date_finished;
+        $US->effort=$request->effort;
+        $US->priority=$request->priority;
+        $US->project_id=$request->project_id;
+        $US->sprint_id=$request->sprint_id;
+        $US->save();
+    });
+
+    Route::get('sprint/{id}', function($id) {
+        $project = App\Project::find($id);
+        return Response::json($project->Sprints()->get());
+    });
 });
