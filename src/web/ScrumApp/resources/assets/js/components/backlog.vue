@@ -103,11 +103,7 @@
                                         </p>
                                             <div>
                                                 <label class="label label-info" style="margin-right: 7px;" >
-                                                    Begin: {{ item.date_begin }}
-                                                </label>
-                                                <label class="label label-success">
-                                                    Finish: {{ item.date_estimated }} 
-                                                </label>
+                                                    Begin: {{ item.date_begin }} </label> <label class="label label-success"> Finish: {{ item.date_estimated }} </label>
                                                 <button class="btn btn-danger pull-right" v-on:click="deleteSprint(item)"><span class="fa fa-trash"></span></button>
                                             </div>
                                         </li>
@@ -139,6 +135,7 @@
              showEditUs:false,
              showAddSprint: false,
              SprintsIds:[],
+             sprint:[],
 
          }
      },

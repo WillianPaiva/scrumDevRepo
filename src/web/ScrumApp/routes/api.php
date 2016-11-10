@@ -152,6 +152,21 @@ Route::group(['middleware' => 'api'], function() {
         return Response::json(App\Project::find($id));
     });
 
+    Route::get('sprintnb/{id}', function($id){
+        $sprint = App\Sprint::find($id);
+        $project = App\Project::find($sprint->project);
+        $list = $project->Sprints()->orderBy('created_at')->get()->pluck('id');
+        $nb = array_search($id,$list);
+        return $nb;
+    });
+
+    Route::get('usnb/{id}', function($id){
+        $us = App\UserStory::find($id);
+        $project = App\Project::find($us->project);
+        $list = $project->UserStorys()->orderBy('created_at')->get()->pluck('id');
+        $nb = array_search($id,$list);
+        return $nb;
+    });
     Route::get('backlog/{id}/{order}', function($id, $order) {
         $project = App\Project::find($id);
         return Response::json($project->UserStorys()->orderBy($order)->get());
