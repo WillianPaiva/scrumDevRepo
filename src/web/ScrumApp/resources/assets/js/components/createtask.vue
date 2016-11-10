@@ -66,13 +66,13 @@
      methods:{
          isEmpty: function(){
          },
-         createUs: function(){
-             this.showAddUs = false;
+         createTask: function(){
+             this.showAddTask = false;
+             this.$emit('ok');
          },
          cancel: function(){
-             this.showAddUs = false;
-         },
-         deleteUs: function(item){
+             this.showAddTask = false;
+             this.$emit('cancel');
          },
      }
 
