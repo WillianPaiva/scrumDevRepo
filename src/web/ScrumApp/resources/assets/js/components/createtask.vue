@@ -26,18 +26,8 @@
                 <div class="form-group">
                     <label for="name"  class="col-md-4 control-label">cost</label>
                     <div class="col-md-2">
-                        <select class="form-control" v-model="taskRequest.cost" required>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="5">5</option>
-                            <option value="8">8</option>
-                            <option value="13">13</option>
-                            <option value="21">21</option>
-                            <option value="34">34</option>
-                            <option value="55">55</option>
-                            <option value="89">89</option>
-                        </select>
+                        <input id="name" v-model="taskRequest.cost"
+                               type="number" class="form-control" name="name" min="1" required />
                     </div>
                     <label for="name"  class="col-md-2 control-label">priority</label>
                     <div class="col-md-2">
