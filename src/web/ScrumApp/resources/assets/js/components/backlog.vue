@@ -95,20 +95,19 @@
                                 </div>
                                     <ul class="list-group">
                                         <li class="list-group-item clearfix" style="" v-for="item in sprint">
-                                            <p style="top:15%;" class="truncate">
-                                                {{ item.name }}
-                                            </p>
+                                        <p style="top:15%;" class="truncate">
+                                            <label class="label label-warning" style="margin-right: 7px;">
+                                               Sprint#{{ getIndexSprint(item) }}
+                                            </label>
+                                                    {{ item.name }}
+                                        </p>
                                             <div>
-                                                <label class="label label-info">
-                                                    Date Begin
-                                                    <span class="badge">{{ item.date_begin }}</span> 
+                                                <label class="label label-info" style="margin-right: 7px;" >
+                                                    Begin: {{ item.date_begin }}
                                                 </label>
-                                                <label class="label label-info">
-                                                    Date Estimated
-                                                    <span class="badge">{{ item.date_estimated }}</span> 
+                                                <label class="label label-success">
+                                                    Finish: {{ item.date_estimated }} 
                                                 </label>
-                                                <br>
-                                                </br>
                                                 <button class="btn btn-danger pull-right" v-on:click="deleteSprint(item)"><span class="fa fa-trash"></span></button>
                                             </div>
                                         </li>
@@ -139,6 +138,7 @@
              showAddUs: false,
              showEditUs:false,
              showAddSprint: false,
+             SprintsIds:[],
 
          }
      },
@@ -171,6 +171,10 @@
 
             this.$http.get('/api/sprint/'+this.id).then(function(response){
                  this.sprint = response.data;
+                 this.SprintsIds= []
+                 for(var i =0; i < response.data.length; i++){
+                     this.SprintsIds.push(response.data[i].id);
+                     }
              });
          },
          isEmpty: function(){
@@ -211,6 +215,9 @@
 
          getIndex: function(item){
              return this.ids.indexOf(item);
+         },
+         getIndexSprint: function(item){
+             return this.SprintsIds.indexOf(item.id);
          },
          openus: function(item){
              return '/userstory/'+item.id+'/'+this.getIndex(item.id);
