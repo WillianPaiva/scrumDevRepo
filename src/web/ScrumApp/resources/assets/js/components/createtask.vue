@@ -46,14 +46,13 @@
      data(){
          return{
              task:[],
-             showAddTask: false,
              taskRequest:{
                  id: '',
                  name: '',
                  description: '',
                  status: '',
                  commit: '',
-                 cost: '',
+                 cost: '0',
                  priority: '0',
                  date_begin: '',
                  date_estimated: '',
@@ -62,10 +61,8 @@
                 }
          }
      },
-     props:['id'],
-     mounted(){
-         console.log('Component ready.')
-     },
+     props:['id', 'showAddTask'],
+
      methods:{
          isEmpty: function(){
          },
