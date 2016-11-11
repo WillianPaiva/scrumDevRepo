@@ -136,7 +136,6 @@
              showAddSprint: false,
              SprintsIds:[],
              sprint:[],
-
          }
      },
      watch: {

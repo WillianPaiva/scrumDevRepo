@@ -32,6 +32,19 @@
                         </br>
                         <div class="well" v-if="isEmpty()"><h3>no tasks</h3></div>
 
+                        <div class="well">
+                            <ul class="list-group">
+                                <li class="list-group-item clearfix" v-for="(item , index) in tasks">
+                                    {{item.name}}
+
+                                    <button class="btn btn-danger pull-right"
+                                            v-on:click="deleteUs(item)">
+                                        <span class="fa fa-trash"></span>
+                                    </button>
+                                </li>
+                            </ul>
+
+                        </div>
                         </div>
 
                     </div>
@@ -53,16 +66,16 @@
              usid:'',
              showAddTask:false,
              us:{
-             description: '',
-             status: '',
-             commit: '',
-             date_begin: '',
-             date_estimated: '',
-             date_finished: '',
-             effort: '1',
-             priority: '0',
-             project_id: '',
-             sprint_id: ''
+                 description: '',
+                 status: '',
+                 commit: '',
+                 date_begin: '',
+                 date_estimated: '',
+                 date_finished: '',
+                 effort: '1',
+                 priority: '0',
+                 project_id: '',
+                 sprint_id: ''
              }
          }
      },
@@ -80,6 +93,9 @@
          getUS: function(){
              this.$http.get('/api/us/'+this.id).then(function(response){
                  this.us = response.data;
+             });
+             this.$http.get('/api/tasks/'+this.id).then(function(response){
+                 this.tasks = response.data; 
              });
          },
          isEmpty: function(){

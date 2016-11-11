@@ -16,9 +16,14 @@ Route::group(['middleware' => 'api'], function() {
     Route::get('members/{id}', function($id) {
 
         $project = App\Project::find($id);
-        return $project->members()->get();
+        return Response::json($project->members()->get());
     });
 
+    Route::get('tasks/{id}', function($id) {
+
+        $userstory = App\UserStory::find($id);
+        return Response::json($userstory->Tasks()->get());
+    });
     Route::get('userlist', function(Request $request) {
 
         $term = $request->q;
