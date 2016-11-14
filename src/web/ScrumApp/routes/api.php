@@ -219,4 +219,16 @@ Route::group(['middleware' => 'api'], function() {
     Route::post('task/delete/{id}', function($id){
         App\Task::find($id)->delete();
     });
+    Route::get('sprintEdit/{id}',function($id) {
+        return Response::json(App\Sprint::find($id));
+    });
+    Route::post('sprint/edit/', function (Request $request){
+        $Sprint=App\Sprint::find($request->id);
+        $Sprint->name=$request->name;
+        $Sprint->date_begin=$request->date_begin;
+        $Sprint->date_estimated=$request->date_estimated;
+        $Sprint->project_id=$request->project_id;
+        $Sprint->save();
+
+    });
 });

@@ -38,6 +38,7 @@ Vue.component('createsprint', require('./components/createSprint.vue'));
 Vue.component('createtask', require('./components/createtask.vue'));
 Vue.component('showus', require('./components/showUs.vue'));
 Vue.component('editus',require('./components/editus.vue'));
+Vue.component('editsprint',require('./components/editSprint.vue'));
 // Vue.component('members', require('./components/Members.vue'));
 
 const app = new Vue({
