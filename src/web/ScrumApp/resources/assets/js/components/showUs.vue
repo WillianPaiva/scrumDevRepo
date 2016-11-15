@@ -38,7 +38,7 @@
                                     {{item.name}}
 
                                     <button class="btn btn-danger pull-right"
-                                            v-on:click="deleteUs(item)">
+                                            v-on:click="">
                                         <span class="fa fa-trash"></span>
                                     </button>
                                 </li>
