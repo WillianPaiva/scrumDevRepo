@@ -109,8 +109,10 @@
                                             <div>
                                                 <label class="label label-info" style="margin-right: 7px;" >
                                                     Begin: {{ item.date_begin }} </label> <label class="label label-success"> Finish: {{ item.date_estimated }} </label>
-                                                <button class="btn btn-danger pull-right" v-on:click="deleteSprint(item)"><span class="fa fa-trash"></span></button>
-                                                <button class="btn btn-info pull-right" v-on:click="getSprint(item)" ><span class="fa fa-pencil-square-o"></span></button>
+                                            <div class="btn-group pull-right" role="group">
+                                                <button class="btn btn-info" v-on:click="getSprint(item)" ><span class="fa fa-pencil-square-o"></span></button>
+                                                <button class="btn btn-danger" v-on:click="deleteSprint(item)"><span class="fa fa-trash"></span></button>
+                                            </div>
                                             </div>
                                         </li>
                                     </ul>
@@ -151,7 +153,7 @@
      watch: {
          order: function(){
              this.fetch();
-         }
+         },
      },
      props:['id'],
      mounted(){
