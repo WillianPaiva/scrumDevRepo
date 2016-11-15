@@ -244,6 +244,10 @@
          openus: function(item){
              return '/userstory/'+item.id+'/'+this.getIndex(item.id);
         },
+         setSprint: function(usid,sprintid){
+             this.$http.post('/api/userstory/setsprint/'+usid+'/'+sprintid);
+             this.fetch();
+         }
 
      }
 
