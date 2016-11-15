@@ -37,9 +37,29 @@
                                 <li class="list-group-item clearfix" v-for="(item , index) in tasks">
                                     {{item.name}}
 
+                                        <div>
+                                            <label class="label label-success">
+                                                Cost
+                                                <span class="badge">{{ item.cost }}</span>
+                                            </label>
+                                            <label class="label label-danger">
+                                                Priority
+                                                <span class="badge">{{ item.priority }}</span>
+                                            </label>
+                                            <label class="label label-success" v-if="item.date_begin != ''" style="margin-right: 7px;" >
+                                                begin {{ item.date_begin }}
+                                            </label>
+                                            <label class="label label-info" v-if="item.date_estimated != ''" style="margin-right: 7px;" >
+                                                expected {{ item.date_estimated }}
+                                            </label>
+                                            <label class="label label-warning" v-if="item.date_finished !=''" style="margin-right: 7px;" >
+                                                finished {{ item.date_finished }}
+                                            </label>
+
                                     <button class="btn btn-danger pull-right"
                                             v-on:click="deleteTask(item)">
                                         <span class="fa fa-trash"></span>
+                                        </div>
                                     </button>
                                 </li>
                             </ul>
