@@ -26,7 +26,7 @@ class CreateUserStoriesTable extends Migration
             $table->integer('project_id')->unsigned();
             $table->foreign('project_id')->references('id')->on('projects');
             $table->integer('sprint_id')->unsigned()->nullable();
-            $table->foreign('sprint_id')->references('id')->on('sprints');
+            $table->foreign('sprint_id')->references('id')->on('sprints')->onDelete('cascade');
             $table->timestamps();
         });
     }
