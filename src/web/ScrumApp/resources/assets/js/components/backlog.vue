@@ -155,9 +155,6 @@
      methods:{
          fetch: function(){
 
-             this.$http.get('/api/backlog/'+this.id+'/'+this.order).then(function(response){
-                 this.userstory = response.data;
-             });
              this.$http.get('/api/backlog/'+this.id+'/created_at').then(function(response){
 
                  this.ids= []
