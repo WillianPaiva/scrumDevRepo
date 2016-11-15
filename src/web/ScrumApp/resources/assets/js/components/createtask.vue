@@ -80,7 +80,7 @@
                  user_story_id: '',
              }
              this.boolShow = false;
-             this.$emit('close');
+             this.$emit('ok');
          },
          cancel: function(){
              this.boolShow = false;
