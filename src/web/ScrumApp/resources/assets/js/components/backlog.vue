@@ -55,12 +55,13 @@
                                                 Priority
                                                 <span class="badge">{{ item.priority }}</span>
                                             </label>
-                                                <label class="label label-danger" v-if="item.sprint_id > 0" style="margin-right: 7px;" >
 
-                                                sprint#{{ getIndexSprint(item.sprint_id) }}
-                                            </label>
+                                            <select  v-model="item.sprint_id" class="label label-danger pull-left" v-on:change="setSprint(item.id,item.sprint_id)" style="margin-right: 7px; width: 100px">
+                                                <option v-for="(spch, index) in SprintsIds" v-bind:value="spch" >Sprint#{{index}}</option>
+                                            </select>
 
-                                            <label class="label label-success" v-if="item.date_estimated != null" style="margin-right: 7px;" >
+
+                                            <label class="label label-success" v-if="item.date_begin != null" style="margin-right: 7px;" >
                                                 begin {{ item.date_begin }}
                                             </label>
                                             <label class="label label-info" v-if="item.date_estimated !=null" style="margin-right: 7px;" >
