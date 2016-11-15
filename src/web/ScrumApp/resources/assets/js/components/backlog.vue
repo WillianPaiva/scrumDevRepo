@@ -57,7 +57,7 @@
                                             </label>
                                                 <label class="label label-danger" v-if="item.sprint_id > 0" style="margin-right: 7px;" >
 
-                                                sprint#{{ item.sprint_id }}
+                                                sprint#{{ getIndexSprint(item.sprint_id) }}
                                             </label>
 
                                             <label class="label label-success" v-if="item.date_estimated != null" style="margin-right: 7px;" >
@@ -97,7 +97,7 @@
                                         <li class="list-group-item clearfix" style="" v-for="item in sprint">
                                         <p style="top:15%;" class="truncate">
                                             <label class="label label-warning" style="margin-right: 7px;">
-                                               Sprint#{{ getIndexSprint(item) }}
+                                               Sprint#{{ getIndexSprint(item.id) }}
                                             </label>
                                                     {{ item.name }}
                                         </p>
