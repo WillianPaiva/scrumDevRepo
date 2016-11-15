@@ -43,6 +43,17 @@ Route::group(['middleware' => 'api'], function() {
         $project = App\Project::find($projectid);
         $project->members()->attach($userid);
     });
+
+    Route::post('userstory/setsprint/{id}/{sp}', function($id, $sp) {
+
+        $sprint=App\Sprint::find($sp);
+        $us=App\UserStory::find($id);
+        $us->sprint_id=$sp;
+        $us->date_begin=$sprint->date_begin;
+        $us->date_estimated=$sprint->date_estimated;
+        $us->save();
+    });
+
     Route::post('members/delete/{projectid}/{userid}', function($projectid, $userid) {
         $project = App\Project::find($projectid);
         $project->members()->detach($userid);
