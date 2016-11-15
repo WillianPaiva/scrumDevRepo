@@ -182,10 +182,14 @@
              return !(this.userstory.length > 0);
          },
          deleteUs: function(item){
-             this.$http.post('/api/us/delete/'+item.id).then(function(response){
-                 console.log(response);
-             });
+
+             var r = confirm("do you really want to delete  this us ?");
+             if (r == true) {
+                 this.$http.post('/api/us/delete/'+item.id);
              this.fetch();
+             } else {
+             }
+
          },
          getUs: function (item){
             this.idTosend=item.id;
