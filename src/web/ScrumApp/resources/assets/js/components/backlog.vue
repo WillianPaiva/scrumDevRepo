@@ -205,8 +205,12 @@
          },
 
         deleteSprint: function(item){
-             this.$http.post('/api/sprint/delete/'+item.id);
-             this.fetch();
+             var r = confirm("do you really want to delete  this sprint ?");
+             if (r == true) {
+                 this.$http.post('/api/sprint/delete/'+item.id);
+                 this.fetch();
+             } else {
+             }
          },
 
          close: function(){
