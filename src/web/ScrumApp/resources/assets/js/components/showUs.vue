@@ -51,8 +51,8 @@
                 </div>
             </div>
             <createtask
-                v-bind:showAddTask="showAddTask"
-                :id="usid"
+                v-bind:boolShow="showAddTask"
+                :id="id"
                 @cancel="close"
                 @ok="close"
             ></createtask>

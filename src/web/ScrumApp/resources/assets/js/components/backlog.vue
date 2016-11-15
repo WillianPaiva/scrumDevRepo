@@ -3,7 +3,7 @@
         <div class="container-fluid">
 
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <div class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <div class="container-fluid panel-container">
@@ -77,11 +77,11 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="panel panel-default">
                         <div class="panel-heading clearfix">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">
-                                Sprints 
+                                Sprints
                             </h4>
                             <button class="btn btn-success pull-right" v-on:click="showAddSprint = true" >
                                 <i class="fa fa-plus"></i>
@@ -105,6 +105,7 @@
                                                 <label class="label label-info" style="margin-right: 7px;" >
                                                     Begin: {{ item.date_begin }} </label> <label class="label label-success"> Finish: {{ item.date_estimated }} </label>
                                                 <button class="btn btn-danger pull-right" v-on:click="deleteSprint(item)"><span class="fa fa-trash"></span></button>
+                                                <button class="btn btn-info pull-right" v-on:click="getSprint(item)" ><span class="fa fa-pencil-square-o"></span></button>
                                             </div>
                                         </li>
                                     </ul>
@@ -118,6 +119,8 @@
         <createus v-bind:boolShow="showAddUs" :id="id" @close="close()"></createus>
         <editus  v-bind:boolShow="showEditUs" :id="idTosend" @close="close()" @ok="update()"></editus>
         <createsprint v-bind:boolShow="showAddSprint" :id="id" @close="close()"></createsprint>
+        <editsprint v-bind:boolShow="showEditSprint" :id="SprintId" @close="close()" @ok="update()"></editsprint>
+
 
 
     </div>
@@ -129,11 +132,13 @@
              order: 'created_at',
              project:{},
              idTosend:1,
+             SprintId:1,
              userstory:[],
              ids:[],
              showAddUs: false,
              showEditUs:false,
              showAddSprint: false,
+             showEditSprint:false,
              SprintsIds:[],
              sprint:[],
          }
@@ -186,6 +191,10 @@
             this.idTosend=item.id;
             this.showEditUs=true;
         },
+        getSprint: function (item){
+            this.SprintId=item.id;
+            this.showEditSprint=true;
+        },
 
          SprintisEmpty: function(){
              return !(this.sprint.length > 0);
@@ -201,11 +210,13 @@
              this.showUs = false;
              this.showEditUs=false;
              this.showAddSprint = false;
+             this.showEditSprint=false;
              this.fetch();
              },
 
          update: function(){
              this.showEditUs=false;
+             this.showEditSprint=false;
              this.fetch();
              },
 

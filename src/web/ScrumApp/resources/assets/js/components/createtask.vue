@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <modal title="Create New Task"
-               :show.sync="showAddTask"
+               :show.sync="boolShow"
                :okText="'Create'"
                :okClass="'btn btn-success'"
                :cancelClass="'btn btn-danger'"
@@ -17,22 +17,22 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="name"  class="col-md-4 control-label">description</label>
+                    <label for="description"  class="col-md-4 control-label">description</label>
                     <div class="col-md-6">
-                        <textarea id="name" v-model="taskRequest.description"
-                                  type="text" class="form-control" name="name" required /></textarea>
+                        <textarea id="description" v-model="taskRequest.description"
+                                  type="text" class="form-control" name="description" required /></textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="name"  class="col-md-4 control-label">cost</label>
+                    <label for="cost"  class="col-md-4 control-label">cost</label>
                     <div class="col-md-2">
-                        <input id="name" v-model="taskRequest.cost"
-                               type="number" class="form-control" name="name" min="1" required />
+                        <input id="cost" v-model="taskRequest.cost"
+                               type="number" class="form-control" name="cost" min="1" required step="0.1" />
                     </div>
-                    <label for="name"  class="col-md-2 control-label">priority</label>
+                    <label for="priority"  class="col-md-2 control-label">priority</label>
                     <div class="col-md-2">
-                        <input id="name" v-model="taskRequest.priority"
-                               type="number" class="form-control" name="name" min="1" required />
+                        <input id="priority" v-model="taskRequest.priority"
+                               type="number" class="form-control" name="priority" min="1" required />
                     </div>
                 </div>
                 </div>
@@ -45,33 +45,45 @@
  export default{
      data(){
          return{
-             task:[],
              taskRequest:{
                  id: '',
                  name: '',
                  description: '',
                  status: '',
                  commit: '',
-                 cost: '0',
-                 priority: '0',
+                 cost: '',
+                 priority: '',
                  date_begin: '',
                  date_estimated: '',
                  date_finished: '',
-                 user_story_id: ''
+                 user_story_id: '',
                 }
          }
      },
-     props:['id', 'showAddTask'],
+     props:['id', 'boolShow'],
 
      methods:{
-         isEmpty: function(){
-         },
          createTask: function(){
-             this.showAddTask = false;
-             this.$emit('ok');
+             this.taskRequest.user_story_id = this.id;
+             this.$http.post('/api/task/add', this.taskRequest);
+             this.taskRequest = {
+                 id: '',
+                 name: '',
+                 description: '',
+                 status: '',
+                 commit: '',
+                 cost: '',
+                 priority: '',
+                 date_begin: '',
+                 date_estimated: '',
+                 date_finished: '',
+                 user_story_id: '',
+             }
+             this.boolShow = false;
+             this.$emit('close');
          },
          cancel: function(){
-             this.showAddTask = false;
+             this.boolShow = false;
              this.$emit('cancel');
          },
      }

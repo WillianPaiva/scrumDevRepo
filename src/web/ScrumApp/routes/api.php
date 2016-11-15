@@ -198,4 +198,37 @@ Route::group(['middleware' => 'api'], function() {
         $project = App\Project::find($id);
         return Response::json($project->Sprints()->get());
     });
+
+    Route::post('task/add', function(Request $request){
+        $task = App\Task::create([
+            'id' => null,
+            'name' => $request->name,
+            'description' => $request->description,
+            'status' => null,
+            'commit' => null,
+            'priority' => $request->priority,
+            'cost' => $request->cost,
+            'date_begin' => null,
+            'date_estimated' => null,
+            'date_finished' => null,
+            'user_story_id' => $request->user_story_id,
+            ]);
+        return $task;
+    });
+
+    Route::post('task/delete/{id}', function($id){
+        App\Task::find($id)->delete();
+    });
+    Route::get('sprintEdit/{id}',function($id) {
+        return Response::json(App\Sprint::find($id));
+    });
+    Route::post('sprint/edit/', function (Request $request){
+        $Sprint=App\Sprint::find($request->id);
+        $Sprint->name=$request->name;
+        $Sprint->date_begin=$request->date_begin;
+        $Sprint->date_estimated=$request->date_estimated;
+        $Sprint->project_id=$request->project_id;
+        $Sprint->save();
+
+    });
 });
