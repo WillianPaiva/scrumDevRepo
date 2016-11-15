@@ -163,10 +163,6 @@
                      }
 
              });
-             this.$http.get('/api/project/'+this.id).then(function(response){
-                 this.project = response.data;
-             });
-
             this.$http.get('/api/sprint/'+this.id).then(function(response){
                  this.sprint = response.data;
                  this.SprintsIds= []
@@ -174,6 +170,13 @@
                      this.SprintsIds.push(response.data[i].id);
                      }
              });
+             this.$http.get('/api/backlog/'+this.id+'/'+this.order).then(function(response){
+                 this.userstory = response.data;
+             });
+             this.$http.get('/api/project/'+this.id).then(function(response){
+                 this.project = response.data;
+             });
+
          },
          isEmpty: function(){
              return !(this.userstory.length > 0);
@@ -229,7 +232,7 @@
              return this.ids.indexOf(item);
          },
          getIndexSprint: function(item){
-             return this.SprintsIds.indexOf(item.id);
+             return this.SprintsIds.indexOf(item);
          },
          openus: function(item){
              return '/userstory/'+item.id+'/'+this.getIndex(item.id);
