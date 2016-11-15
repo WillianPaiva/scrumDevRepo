@@ -104,6 +104,10 @@
          close: function(){
              this.showAddTask = false;
              this.getUS();
+         },
+         deleteTask: function(item){
+             this.$http.post('/api/task/delete/'+item.id);
+             this.getUS();
          }
      }
 
