@@ -105,6 +105,8 @@
                                                Sprint#{{ getIndexSprint(item.id) }}
                                             </label>
                                                     {{ item.name }}
+
+                                                <a class="btn btn-warning pull-right" >Kanban</a>
                                         </p>
                                             <div>
                                                 <label class="label label-info" style="margin-right: 7px;" >
