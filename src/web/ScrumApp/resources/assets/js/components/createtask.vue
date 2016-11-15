@@ -27,7 +27,7 @@
                     <label for="cost"  class="col-md-4 control-label">cost</label>
                     <div class="col-md-2">
                         <input id="cost" v-model="taskRequest.cost"
-                               type="number" class="form-control" name="cost" min="1" required step="0.1" />
+                               type="number"  class="form-control" name="cost" min="1" step="0.25" required/>
                     </div>
                     <label for="priority"  class="col-md-2 control-label">priority</label>
                     <div class="col-md-2">
