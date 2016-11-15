@@ -67,10 +67,14 @@
                                             <label class="label label-info" v-if="item.date_estimated !=null" style="margin-right: 7px;" >
                                                 expected {{ item.date_estimated }}
                                             </label>
-
-                                            <button class="btn btn-danger pull-right" v-on:click="deleteUs(item)"><span class="fa fa-trash"></span></button>
-                                            <a class="btn btn-info pull-right" :href="openus(item)"><span class="fa fa-gear"></span></a>
-                                        <button class="btn btn-info pull-right" v-on:click="getUs(item)" ><span class="fa fa-pencil-square-o"></span></button>
+                                            <label class="label label-danger" v-if="item.date_finished !=null" style="margin-right: 7px;" >
+                                                finished {{ item.date_finished }}
+                                            </label>
+                                            <div class="btn-group pull-right" role="group">
+                                                <a class="btn btn-info" :href="openus(item)"><span class="fa fa-gear"></span></a>
+                                                <button class="btn btn-info" v-on:click="getUs(item)" ><span class="fa fa-pencil-square-o"></span></button>
+                                                <button class="btn btn-danger" v-on:click="deleteUs(item)"><span class="fa fa-trash"></span></button>
+                                            </div>
                                         </div>
                                     </li>
                                 </ul>
