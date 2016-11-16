@@ -105,6 +105,21 @@ Route::group(['middleware' => 'api'], function() {
             'date_estimated' => $request->date_estimated,
             'project_id' => $request->project_id,
         ]);
+        App\Layout::create([
+            'name' => 'TODO',
+            'position' => 0,
+            'sprint_id' => $sprint->id,
+        ]);
+        App\Layout::create([
+            'name' => 'DOING',
+            'position' => 1,
+            'sprint_id' => $sprint->id,
+        ]);
+        App\Layout::create([
+            'name' => 'DONE',
+            'position' => 2,
+            'sprint_id' => $sprint->id,
+        ]);
         return $sprint;
     });
 
