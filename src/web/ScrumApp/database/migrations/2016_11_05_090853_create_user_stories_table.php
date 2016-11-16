@@ -24,7 +24,7 @@ class CreateUserStoriesTable extends Migration
             $table->integer('effort');
             $table->integer('priority');
             $table->integer('project_id')->unsigned();
-            $table->foreign('project_id')->references('id')->on('projects');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->integer('sprint_id')->unsigned()->nullable();
             $table->foreign('sprint_id')->references('id')->on('sprints')->onDelete('cascade');
             $table->timestamps();
