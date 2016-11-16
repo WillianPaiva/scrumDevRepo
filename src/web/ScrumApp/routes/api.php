@@ -184,6 +184,12 @@ Route::group(['middleware' => 'api'], function() {
         return Response::json(App\Project::find($id));
     });
 
+    Route::get('layout/{id}', function($id) {
+        $sprint = App\Sprint::find($id);
+        $cols = $sprint->Collunms()->orderBy('position')->get();
+        return Response::json($cols);
+    });
+
     Route::get('sprintnb/{id}', function($id){
         $sprint = App\Sprint::find($id);
         $project = App\Project::find($sprint->project);
