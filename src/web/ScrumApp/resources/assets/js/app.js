@@ -54,7 +54,10 @@ const app = new Vue({
     }
 
 });
+const board = new Vue({
+    el: '#boardWrapper'
 
+});
 const backlog = new Vue({
     el: '#backlog'
 });
