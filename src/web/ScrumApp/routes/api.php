@@ -190,6 +190,18 @@ Route::group(['middleware' => 'api'], function() {
         return Response::json($cols);
     });
 
+    Route::get('get_tasks/{id}', function($id) {
+        $sprint = App\Sprint::find($id);
+        $result = array();
+        foreach($sprint->UserStorys()->get() as $us){
+            foreach($us->Tasks()->get() as $task){
+                array_push($result, $task);
+            }
+
+        }
+        return Response::json($result);
+    });
+
     Route::get('sprintnb/{id}', function($id){
         $sprint = App\Sprint::find($id);
         $project = App\Project::find($sprint->project);
