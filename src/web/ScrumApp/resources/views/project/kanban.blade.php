@@ -4,7 +4,7 @@
 
 
 <div id="boardWrapper">
-    <kanban></kanban>
+    <kanban :sprintid="{{$id}}"></kanban>
 </div>
 
 @endsection
