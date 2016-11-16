@@ -246,6 +246,9 @@
          openus: function(item){
              return '/userstory/'+item.id+'/'+this.getIndex(item.id);
         },
+         getKanbanLink: function(item){
+             return '/kanban/'+item;
+        },
          setSprint: function(usid,sprintid){
              this.$http.post('/api/userstory/setsprint/'+usid+'/'+sprintid);
              this.fetch();
