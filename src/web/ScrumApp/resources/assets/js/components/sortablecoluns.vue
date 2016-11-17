@@ -71,14 +71,37 @@
                  draggable: 'li',
                  animation: 100,
                  onUpdate: function(e) {
-                     that.updateColunms(e.oldIndex,e.newIndex);
+                     that.$http.post('/api/layout_pos/'+that.colunms[e.oldIndex].id+'/'+e.newIndex).then(function(){
+                 var i;
+                 if(e.oldIndex < e.newIndex){
+                     for (i = (e.oldIndex+1); i <= e.newIndex; i++) {
+                         that.$http.post('/api/layout_pos/'+that.colunms[i].id+'/'+(parseInt(that.colunms[i].position)-1)); 
+                     }
+                 }
+                 if(e.oldIndex > e.newIndex){
+                     for (i = e.newIndex; i < e.oldIndex; i++) {
+                         that.$http.post('/api/layout_pos/'+that.colunms[i].id+'/'+(parseInt(that.colunms[i].position)+1));
+                     }
+                 }
+             });
                  }
              });
          },
-
-         updateColunms: function(oldIndex, newIndex){
-             console.log( "Moving " + oldIndex + " to " + newIndex);
+         addColunm: function(){
+             if(this.colname != ''){
+                                             var request = {}; 
+                 request.name = this.colname;
+                 request.position = this.colunms.length;
+                 request.sprint_id = this.sprintid;
+                 console.log(request);
+                 this.$http.post('/api/layout/add', request);
+             }
+             this.modalShow = false;
+             this.colname = '';
+             this.fetch();
          }
+
+
      },
 
  }
