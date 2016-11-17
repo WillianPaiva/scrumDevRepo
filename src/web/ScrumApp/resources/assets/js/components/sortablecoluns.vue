@@ -13,7 +13,33 @@
                     </div>
                 </div>
             </li>
+            <li><button class="btn btn-success" v-on:click="modalShow=true">
+                <i class="fa fa-plus"></i>
+            </button></li>
         </ul>
+        <div class="container">
+            <modal title="new colunm"
+                   :show.sync="modalShow"
+                   :okText="'Create'"
+                   :okClass="'btn btn-success'"
+                   :cancelClass="'btn btn-danger'"
+                   @ok="addColunm"
+                   @cancel="modalShow=false">
+                <form class="form-horizontal" >
+                    <div class="form-group">
+                        <label for="name"  class="col-md-4 control-label">Name</label>
+                        <div class="col-md-6">
+                            <input id="name"
+                                   v-model="colname"
+                                   type="text"
+                                   class="form-control"
+                                   name="name"
+                                   required />
+                        </div>
+                    </div>
+                </form>
+            </modal>
+        </div>
     </div>
 </template>
 <script>
@@ -22,6 +48,8 @@
      data(){
          return {
              colunms:[],
+             modalShow: false,
+             colname:''
          }
      },
      props:['sprintid'],
