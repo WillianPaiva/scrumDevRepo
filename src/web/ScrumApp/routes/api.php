@@ -97,6 +97,13 @@ Route::group(['middleware' => 'api'], function() {
         return $us;
     });
 
+    Route::post('layout/add', function(Request $request) {
+        App\Layout::create([
+            'name' => $request->name,
+            'position' => $request->position,
+            'sprint_id' => $request->sprint_id,
+        ]);
+    });
     Route::post('sprint/add', function(Request $request) {
         $sprint = App\Sprint::create([
             'id' => null,
@@ -224,6 +231,13 @@ Route::group(['middleware' => 'api'], function() {
     Route::get('us/{id}',function($id) {
         return Response::json(App\UserStory::find($id));
     });
+
+    Route::post('layout_pos/{id}/{pos}',function($id, $pos) {
+        $layout = App\Layout::find($id);
+        $layout->position = $pos;
+        $layout->save();
+    });
+
     Route::post('us/edit/',function(Request $request){
         $US=App\UserStory::find($request->id);
         $US->description=$request->description;
@@ -242,6 +256,12 @@ Route::group(['middleware' => 'api'], function() {
     Route::get('sprint/{id}', function($id) {
         $project = App\Project::find($id);
         return Response::json($project->Sprints()->get());
+    });
+
+    Route::post('updatetask/{id}/{status}', function($id, $status){
+        $task = App\Task::find($id);
+        $task->status = $status;
+        $task->save();
     });
 
      Route::post('task/add', function(Request $request){
