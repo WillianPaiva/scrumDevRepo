@@ -46,6 +46,7 @@ Vue.component('editsprint',require('./components/editSprint.vue'));
 Vue.component('kanban',require('./components/kanban.vue'));
 Vue.component('sortabletasks',require('./components/sortabletasks.vue'));
 Vue.component('sortablecoluns',require('./components/sortablecoluns.vue'));
+Vue.component('burndown',require('./components/burndown.vue'));
 Vue.component('stats',require('./components/statistics.vue'));
 
 
