@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div id="statistics">
+    <div id="stats">
         <stats :id="{{ $id }}"></stats>
     </div>
 @endsection
