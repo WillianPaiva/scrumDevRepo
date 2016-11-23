@@ -26,6 +26,10 @@
                                  <button class="btn btn-success pull-right" v-on:click="showAddUs = true">
                                      <i class="fa fa-plus"></i>
                                  </button>
+
+                                 <a class="btn btn-info pull-right" :href="getStatsLink()">
+                                     <i class="fa fa-line-chart"></i>
+                                 </a>
                              </div>
 
                             </div>
@@ -262,6 +266,9 @@
              }else{
                  return "";
              }
+         },
+         getStatsLink: function(){
+             return '/stats/'+this.id;
          }
 
      }
