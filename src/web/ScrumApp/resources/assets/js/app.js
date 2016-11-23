@@ -45,6 +45,7 @@ Vue.component('editsprint',require('./components/editSprint.vue'));
 Vue.component('kanban',require('./components/kanban.vue'));
 Vue.component('sortabletasks',require('./components/sortabletasks.vue'));
 Vue.component('sortablecoluns',require('./components/sortablecoluns.vue'));
+Vue.component('stats',require('./components/statistics.vue'));
 
 // Vue.component('members', require('./components/Members.vue'));
 
@@ -59,6 +60,12 @@ const board = new Vue({
     el: '#boardWrapper'
 
 });
+
+const stats = new Vue({
+    el: '#stats'
+
+});
+
 const backlog = new Vue({
     el: '#backlog'
 });
