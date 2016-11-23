@@ -61,9 +61,6 @@ const board = new Vue({
     el: '#boardWrapper'
 });
 
-const stats = new Vue({
-    el: '#stats'
-});
 
 const backlog = new Vue({
     el: '#backlog'
@@ -79,4 +76,12 @@ const projects = new Vue({
 
 const createtask = new Vue({
     el: '#createtask'
+});
+
+const stats = new Vue({
+    el: '#stats',
+    data:{
+        labels:[],
+        sprints:[]
+    }
 });
