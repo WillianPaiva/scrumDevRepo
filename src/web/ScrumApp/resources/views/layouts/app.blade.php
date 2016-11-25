@@ -54,6 +54,17 @@
 
                     <div class="collapse navbar-collapse" id="app-navbar-collapse">
                         <!-- Left Side Of Navbar -->
+                        @if (!Auth::guest())
+                        <ul class="nav navbar-nav navbar-left">
+                        @if (Route::currentRouteName() == 'backlog')
+                            <? php $id = {{Session::get('backlogActiv')}} ?>
+                            <li class="active"><a href="{{route('backlog', ['id' => Session::get('backlogActiv')])}}"><span class="fa fa-btn">{{Session::get('titleProject')}}</span></a></li>
+                        @endif
+                            @if (Session::get('backlogActiv') != '' && Route::currentRouteName() != 'backlog')
+                            <li><a href="{{route('backlog', ['id' => Session::get('backlogActiv')])}}"><span class="fa fa-btn">{{Session::get('titleProject')}}</span></a></li>
+                        @endif
+                        </ul>
+                        @endif
                         <!-- Right Side Of Navbar -->
                         <ul class="nav navbar-nav navbar-right">
                             <!-- Authentication Links -->
