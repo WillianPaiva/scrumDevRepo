@@ -3,7 +3,8 @@
     <ul class="list-group">
         <li class="list-group-item clearfix"
             v-for="task in tasks" :taskid="task.id">{{task.name}}</li>
-    </ul>
+            </ul>
+
     </div>
 </template>
 <script>
@@ -37,9 +38,12 @@
                      var taskid = this.el.firstChild.getAttribute("taskid");
                      that.$http.post('/api/updatetask/'+taskid+'/'+that.status)
 
-                     /* evt.from;*/ 
+                     /* evt.from;*/
                      // + indexes from onEnd
                  },
+                 onRemove: function (/**Event*/evt) {
+                     console.log("this is the removal");
+                },
              });
          },
          isEmpty: function(){
