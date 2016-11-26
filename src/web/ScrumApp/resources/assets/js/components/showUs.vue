@@ -55,12 +55,10 @@
                                             <label class="label label-warning" v-if="item.date_finished !=''" style="margin-right: 7px;" >
                                                 finished {{ item.date_finished }}
                                             </label>
-
-                                    <button class="btn btn-danger pull-right"
-                                            v-on:click="deleteTask(item)">
-                                        <span class="fa fa-trash"></span>
-                                        </div>
-                                    </button>
+                                    <div class="btn-group pull-right" role="group">
+                                        <button class="btn btn-info" v-on:click="getTask(item)" ><span class="fa fa-pencil-square-o"></span></button>
+                                        <button class="btn btn-danger" v-on:click="deleteTask(item)"><span class="fa fa-trash"></span></div></button>
+                                    </div>
                                 </li>
                             </ul>
 
@@ -70,12 +68,9 @@
                     </div>
                 </div>
             </div>
-            <createtask
-                v-bind:boolShow="showAddTask"
-                :id="id"
-                @cancel="close"
-                @ok="close"
-            ></createtask>
+            <createtask v-bind:boolShow="showAddTask":id="id" @cancel="close" @ok="close"></createtask>
+            <edittask v-bind:boolShow="showEditTask":id="TaskId" @cancel="close" @ok="close"></edittask>
+
     </div>
 </template>
 <script>
@@ -85,6 +80,8 @@
              tasks:[],
              usid:'',
              showAddTask:false,
+             showEditTask:false,
+             TaskId:1,
              us:{
                  description: '',
                  status: '',
@@ -96,7 +93,7 @@
                  priority: '0',
                  project_id: '',
                  sprint_id: ''
-             }
+             },
          }
      },
      props:['id','nb'],
@@ -118,11 +115,17 @@
                  this.tasks = response.data; 
              });
          },
+
+        getTask: function (item){
+            this.TaskId=item.id;
+            this.showEditTask=true;
+        },
          isEmpty: function(){
              return !(this.tasks.length > 0)
          },
          close: function(){
              this.showAddTask = false;
+             this.showEditTask = false,
              this.getUS();
          },
          deleteTask: function(item){

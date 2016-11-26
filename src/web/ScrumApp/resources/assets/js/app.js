@@ -43,6 +43,7 @@ Vue.component('createtask', require('./components/createtask.vue'));
 Vue.component('showus', require('./components/showUs.vue'));
 Vue.component('editus',require('./components/editus.vue'));
 Vue.component('editsprint',require('./components/editSprint.vue'));
+Vue.component('edittask',require('./components/editTask.vue'));
 Vue.component('kanban',require('./components/kanban.vue'));
 Vue.component('sortabletasks',require('./components/sortabletasks.vue'));
 Vue.component('sortablecoluns',require('./components/sortablecoluns.vue'));
