@@ -284,7 +284,7 @@ Route::group(['middleware' => 'api'], function() {
     Route::post('task/delete/{id}', function($id){
         App\Task::find($id)->delete();
     });
-    
+
     Route::get('sprintEdit/{id}',function($id) {
         return Response::json(App\Sprint::find($id));
     });
@@ -298,15 +298,17 @@ Route::group(['middleware' => 'api'], function() {
 
     });
 
-    
+
     Route::get('taskEdit/{id}',function($id) {
         return Response::json(App\Task::find($id));
     });
-    
+
     Route::post('task/edit/', function (Request $request){
         $Task=App\Task::find($request->id);
         $Task->name=$request->name;
         $Task->description=$request->description;
+        $Task->status=$request->status;
+        $Task->commit=$request->commit;
         $Task->priority=$request->priority;
         $Task->cost=$request->cost;
         $Task->save();

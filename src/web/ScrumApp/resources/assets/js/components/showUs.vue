@@ -57,7 +57,7 @@
                                             </label>
                                     <div class="btn-group pull-right" role="group">
                                         <button class="btn btn-info" v-on:click="getTask(item)" ><span class="fa fa-pencil-square-o"></span></button>
-                                        <button class="btn btn-primary" v-on:click="getTask(item)"><span class="fa fa-github fa-fw"></span></button>
+                                        <button class="btn btn-primary" v-on:click="getCommit(item)"><span class="fa fa-github fa-fw"></span></button>
                                         <button class="btn btn-danger" v-on:click="deleteTask(item)"><span class="fa fa-trash"></span></div></button>
                                     </div>
                                 </li>
@@ -71,7 +71,7 @@
             </div>
             <createtask v-bind:boolShow="showAddTask":id="id" @cancel="close" @ok="close"></createtask>
             <edittask v-bind:boolShow="showEditTask":id="TaskId" @cancel="close" @ok="close"></edittask>
-
+            <commit v-bind:boolShow="showCommit" :id="taskCommitId" @cancel="close" @ok="close"></commit>
     </div>
 </template>
 <script>
@@ -82,7 +82,8 @@
              usid:'',
              showAddTask:false,
              showEditTask:false,
-             TaskId:1,
+             showCommit:false,
+             taskCommitId:1,
              us:{
                  description: '',
                  status: '',
@@ -121,12 +122,17 @@
             this.TaskId=item.id;
             this.showEditTask=true;
         },
+        getCommit: function (item){
+          this.taskCommitId= item.id;
+          this.showCommit=true;
+        },
          isEmpty: function(){
              return !(this.tasks.length > 0)
          },
          close: function(){
              this.showAddTask = false;
              this.showEditTask = false,
+             this.showCommit=false,
              this.getUS();
          },
          deleteTask: function(item){

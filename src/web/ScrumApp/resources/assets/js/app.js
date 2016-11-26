@@ -49,6 +49,7 @@ Vue.component('sortabletasks',require('./components/sortabletasks.vue'));
 Vue.component('sortablecoluns',require('./components/sortablecoluns.vue'));
 Vue.component('burndown',require('./components/burndown.vue'));
 Vue.component('stats',require('./components/statistics.vue'));
+Vue.component('commit', require('./components/commitLink.vue'));
 
 
 const app = new Vue({
