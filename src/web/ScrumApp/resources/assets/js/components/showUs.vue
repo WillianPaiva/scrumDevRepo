@@ -10,12 +10,12 @@
 
                             <label class="label label-success" style="margin-right: 7px;">
                                 effort
-                                <span class="badge">{{ us.effort }}</span> 
+                                <span class="badge">{{ us.effort }}</span>
                             </label>
 
                             <label class="label label-info" style="margin-right: 7px;">
                                 priority
-                                <span class="badge">{{ us.priority }}</span> 
+                                <span class="badge">{{ us.priority }}</span>
                             </label>
 
                                  <button class="btn btn-success pull-right" v-on:click="showAddTask = true">
@@ -57,6 +57,7 @@
                                             </label>
                                     <div class="btn-group pull-right" role="group">
                                         <button class="btn btn-info" v-on:click="getTask(item)" ><span class="fa fa-pencil-square-o"></span></button>
+                                        <button class="btn btn-primary" v-on:click="getTask(item)"><span class="fa fa-github fa-fw"></span></button>
                                         <button class="btn btn-danger" v-on:click="deleteTask(item)"><span class="fa fa-trash"></span></div></button>
                                     </div>
                                 </li>
@@ -112,7 +113,7 @@
                  this.us = response.data;
              });
              this.$http.get('/api/tasks/'+this.id).then(function(response){
-                 this.tasks = response.data; 
+                 this.tasks = response.data;
              });
          },
 
