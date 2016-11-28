@@ -136,8 +136,6 @@
              this.getUS();
          },
         checkUsDone : function(){
-            console.log(this.us.date_finished);
-            console.log(this.us.status);
             if(this.us.date_finished != null || this.us.status == "DONE"){
                 return "background-color :rgb(119,136,153);"
             }else{
