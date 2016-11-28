@@ -211,7 +211,7 @@
          },
          deleteUs: function(item){
 
-             var r = confirm("do you really want to delete  this us ?");
+             var r = confirm("Do you really want to delete this user story ?");
              if (r == true) {
                  this.$http.post('/api/us/delete/'+item.id);
              this.fetch();
@@ -235,7 +235,7 @@
          },
 
         deleteSprint: function(item){
-             var r = confirm("do you really want to delete  this sprint ?");
+             var r = confirm("Do you really want to delete this sprint ?");
              if (r == true) {
                  this.$http.post('/api/sprint/delete/'+item.id);
                  this.fetch();

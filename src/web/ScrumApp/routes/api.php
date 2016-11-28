@@ -272,6 +272,23 @@ Route::post('updatetask/{id}/{status}', function($id, $status){
   $task->save();
 });
 
+Route::post('updateus/{id}', function($id){
+  $sprint = App\Sprint::find($id);
+  foreach ($sprint->UserStorys()->get() as $us) {
+      foreach($us->Tasks()->get() as $task){
+          if($task->status=="DONE"){
+                $us->status = "DONE";
+                $us->save();
+           }
+           else{
+             $us->status = "ON GOING";
+             $us->save();
+             break;
+           }
+      }
+  }
+});
+
 Route::post('task/add', function(Request $request){
   $task = App\Task::create([
     'id' => null,

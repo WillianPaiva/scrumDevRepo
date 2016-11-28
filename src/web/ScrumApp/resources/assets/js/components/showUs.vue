@@ -151,7 +151,7 @@
          },
          deleteTask: function(item){
 
-             var r = confirm("do you really want to delete  this task ?");
+             var r = confirm("Do you really want to delete this task ?");
              if (r == true) {
                  this.$http.post('/api/task/delete/'+item.id);
                  this.getUS();

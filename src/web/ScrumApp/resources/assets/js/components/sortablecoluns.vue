@@ -105,9 +105,9 @@ export default{
         },
         deleteCol: function (colname){
 
-            var r = confirm("do you really want to delete  this us ?");
+            var r = confirm("Do you really want to delete this column ?");
             if (r == true) {
-                
+
                 this.$http.post('/api/layout/delete/'+this.sprintid+'/'+colname);
                 this.fetch();
             }
