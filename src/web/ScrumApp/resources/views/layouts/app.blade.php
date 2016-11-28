@@ -58,10 +58,10 @@
                         <ul class="nav navbar-nav navbar-left">
                         @if (Route::currentRouteName() == 'backlog')
                             <? php $id = {{Session::get('backlogActiv')}} ?>
-                            <li class="active"><a href="{{route('backlog', ['id' => Session::get('backlogActiv')])}}"><span class="fa fa-btn">{{Session::get('titleProject')}}</span></a></li>
+                            <li class="active"><a href="{{route('backlog', ['id' => Session::get('backlogActiv')])}}" role="button" style="left:10px">{{Session::get('titleProject')}}</a></li>
                         @endif
                             @if (Session::get('backlogActiv') != '' && Route::currentRouteName() != 'backlog')
-                            <li><a href="{{route('backlog', ['id' => Session::get('backlogActiv')])}}"><span class="fa fa-btn">{{Session::get('titleProject')}}</span></a></li>
+                            <li><a href="{{route('backlog', ['id' => Session::get('backlogActiv')])}}" role="button" style="left:10px">{{Session::get('titleProject')}}</a></li>
                         @endif
                         </ul>
                         @endif
