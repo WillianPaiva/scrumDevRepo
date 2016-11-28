@@ -1,6 +1,6 @@
 <template>
         <div class="container">
-            <modal title="Create New Project"
+            <modal title="Create New User Story"
                    :show.sync="boolShow"
                    :okText="'Create'"
                    :okClass="'btn btn-success'"

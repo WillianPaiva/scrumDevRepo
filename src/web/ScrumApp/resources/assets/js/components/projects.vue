@@ -238,7 +238,7 @@
              });
          },
          deleteProject: function(item){
-             var r = confirm("do you really want to delete "+item.name);
+             var r = confirm("Do you really want to delete "+item.name+" ?");
              if (r == true) {
                  this.$http.post('/api/project/delete/'+item.id);
                  this.update();
@@ -346,7 +346,7 @@
     -webkit-transition: all 200ms ease-in;
     -webkit-transform: scale(1.5);
     -ms-transition: all 200ms ease-in;
-    -ms-transform: scale(1.5);   
+    -ms-transform: scale(1.5);
     -moz-transition: all 200ms ease-in;
     -moz-transform: scale(1.5);
     transition: all 200ms ease-in;
