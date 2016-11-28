@@ -92,6 +92,15 @@
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">
                                 Sprints
                             </h4>
+
+                            <div class="col-xs-6 text-center ">
+                                 <select  v-model="orderSprint" class="soflow">
+                                     <option value="created_at">created</option>
+                                     <option value="date_begin">Date Begin</option>
+                                     <option value="date_estimated">Date Finish</option>
+                                 </select>
+                             </div>
+
                             <button class="btn btn-success pull-right" v-on:click="showAddSprint = true" >
                                 <i class="fa fa-plus"></i>
                             </button>
@@ -143,6 +152,7 @@
      data(){
          return{
              order: 'created_at',
+             orderSprint : 'created_at',
              project:{},
              idTosend:1,
              SprintId:1,
@@ -158,6 +168,9 @@
      },
      watch: {
          order: function(){
+             this.fetch();
+         },
+         orderSprint : function(){
              this.fetch();
          },
      },
@@ -185,6 +198,9 @@
              });
              this.$http.get('/api/backlog/'+this.id+'/'+this.order).then(function(response){
                  this.userstory = response.data;
+             });
+             this.$http.get('/api/sprint/'+this.id+'/'+this.orderSprint).then(function(response){
+                 this.sprint = response.data;
              });
              this.$http.get('/api/project/'+this.id).then(function(response){
                  this.project = response.data;

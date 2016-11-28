@@ -232,6 +232,10 @@ Route::get('backlog/{id}/{order}', function($id, $order) {
   $project = App\Project::find($id);
   return Response::json($project->UserStorys()->orderBy($order)->get());
 });
+Route::get('sprint/{id}/{order}', function($id, $order) {
+  $project = App\Project::find($id);
+  return Response::json($project->Sprints()->orderBy($order)->get());
+});
 Route::get('us/{id}',function($id) {
   return Response::json(App\UserStory::find($id));
 });
