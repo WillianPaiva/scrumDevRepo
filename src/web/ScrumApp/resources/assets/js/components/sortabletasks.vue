@@ -37,6 +37,8 @@
                      /* var itemEl = evt.item;*/
                      var taskid = this.el.firstChild.getAttribute("taskid");
                      that.$http.post('/api/updatetask/'+taskid+'/'+that.status)
+                     that.$http.post('/api/updateus/'+that.sprintid);
+
 
                      /* evt.from;*/
                      // + indexes from onEnd
