@@ -3,7 +3,7 @@
             <div class="row">
                 <div class="col-md-12 col-md-offset-0">
                     <div class="panel panel-default">
-                        <div class="panel-heading clearfix">
+                        <div class="panel-heading clearfix" :style="checkUsDone()">
                             <label class="label label-warning" style="margin-right: 7px;">
                                 US#{{nb}}
                             </label>
@@ -18,7 +18,7 @@
                                 <span class="badge">{{ us.priority }}</span>
                             </label>
 
-                                 <button class="btn btn-success pull-right" v-on:click="showAddTask = true">
+                                 <button class="btn btn-success pull-right" v-on:click="showAddTask = true" :disabled="disabledButton()">
                                      New Task
                                  </button>
 
@@ -94,7 +94,7 @@
                  effort: '1',
                  priority: '0',
                  project_id: '',
-                 sprint_id: ''
+                 sprint_id: '',
              },
          }
      },
@@ -134,6 +134,22 @@
              this.showEditTask = false,
              this.showCommit=false,
              this.getUS();
+         },
+        checkUsDone : function(){
+            console.log(this.us.date_finished);
+            console.log(this.us.status);
+            if(this.us.date_finished != null || this.us.status == "DONE"){
+                return "background-color :rgb(119,136,153);"
+            }else{
+                return "";
+            }
+         },
+         disabledButton : function(){
+            if(this.us.date_finished != null || this.us.status == "DONE"){
+                return true;
+            } else {
+                return false;
+            }
          },
          deleteTask: function(item){
 

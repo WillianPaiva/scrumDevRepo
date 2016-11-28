@@ -40,9 +40,8 @@
                                     <h1>backlog is empty</h1>
                                 </div>
                                 <ul class="list-group">
-                                    <li class="list-group-item clearfix"
-                                        v-for="(item , index) in userstory"
-                                    >
+                                    <li class="list-group-item clearfix" :style="checkUsDone(item)"
+                                        v-for="(item , index) in userstory">
                                         <p style="top:15%;" class="truncate">
 
                                             <label class="label label-warning" style="margin-right: 7px;">
@@ -228,7 +227,9 @@
             this.SprintId=item.id;
             this.showEditSprint=true;
         },
-
+        openus: function(item){
+             return '/userstory/'+item.id+'/'+this.getIndex(item.id);
+        },
          SprintisEmpty: function(){
              return !(this.sprint.length > 0);
          },
@@ -263,9 +264,6 @@
          getIndexSprint: function(item){
              return this.SprintsIds.indexOf(item);
          },
-         openus: function(item){
-             return '/userstory/'+item.id+'/'+this.getIndex(item.id);
-        },
          getKanbanLink: function(item){
              return '/kanban/'+item;
         },
@@ -282,6 +280,14 @@
              }else{
                  return "";
              }
+         },
+        checkUsDone : function(item){
+            var status = item.status;
+            if(item.date_finished != null || status == "DONE"){
+                return "background-color :rgb(119,136,153);"
+            }else{
+                return "";
+            }
          },
          getStatsLink: function(){
              return '/stats/'+this.id;
