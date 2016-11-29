@@ -4,29 +4,7 @@
             <li class="list-group-item clearfix"
             v-for="task in tasks" :taskid="task.id">{{task.name}}</li>
         </ul>
-        <div class="container">
-            <modal title="Commit on done task"
-            :show.sync="boolCommitShow"
-            :okText="'Create'"
-            :okClass="'btn btn-success'"
-            :cancelClass="'btn btn-danger'"
-            @ok="addCommit"
-            @cancel="cancel">
-            <form class="form-horizontal" >
-                <div class="form-group">
-                    <label for="name"  class="col-md-4 control-label">Commit Link</label>
-                    <div class="col-md-6">
-                        <input id="name"
-                        v-model="colname"
-                        type="text"
-                        class="form-control"
-                        name="name"
-                        required />
-                    </div>
-                </div>
-            </form>
-        </modal>
-    </div>
+
     </div>
 </template>
 <script>
