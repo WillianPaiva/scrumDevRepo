@@ -313,7 +313,16 @@ Route::post('task/delete/{id}', function($id){
      App\Sprint::find($id)->Collunms()->where('name',$name)->delete();
 
  });
+Route::get('task/{status}/{id}',function($status,$id){
+$us=App\UserStory::find($id);
+$result=array();
+  foreach($us->Tasks()->where('status',$status)->get() as $task){
+    array_push($result, $task);
+  }
 
+
+return Response::json($result);
+});
 Route::get('sprintEdit/{id}',function($id) {
   return Response::json(App\Sprint::find($id));
 });

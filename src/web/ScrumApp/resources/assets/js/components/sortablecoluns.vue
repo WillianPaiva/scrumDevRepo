@@ -4,9 +4,12 @@
             <li class="DocumentItem" v-for="(col, index) in colunms" :index="index">
                 <div class="panel panel-warning">
                     <div class="panel-heading clearfix">
-                        {{col.name}}<button class="btn btn-danger btn-xs pull-right" v-on:click="deleteCol(col.name)">
+                        {{col.name}}
+
+                        <button class="btn btn-danger btn-xs pull-right"  v-if="col.name != 'DONE' && col.name!= 'TODO' " v-on:click="deleteCol(col.name)">
                             <i class="fa fa-minus fa-lg"></i>
                         </button>
+
                     </div>
                     <div class="panel-body">
                         <div class="well">
@@ -52,7 +55,8 @@ export default{
             colunms:[],
             modalShow: false,
             sprintId:1,
-            colname:''
+            colname:'',
+            check:[]
         }
     },
     props:['sprintid'],
@@ -65,7 +69,6 @@ export default{
             this.$http.get('/api/layout/'+this.sprintid).then(function(response){
                 this.colunms = response.data;
             });
-
 
         },
         sortable: function () {
@@ -87,6 +90,7 @@ export default{
                             }
                         }
                     });
+
                 }
             });
         },
@@ -104,15 +108,25 @@ export default{
             this.fetch();
         },
         deleteCol: function (colname){
+            this.$http.get('/api/task/'+colname+'/'+this.sprintid).then(function(response){
+                this.check=response.data;
+                if (this.check==''){
+                    var r = confirm("do you really want to delete  this column ?");
+                    if (r == true) {
+                        this.$http.post('/api/layout/delete/'+this.sprintid+'/'+colname).then(value => {this.fetch();});
+                    }
+                }
+                else {
+                    alert("column not empty");
+                }
+            });
+            console.log('trying to delete this column-->'+colname);
+            console.log('the check is --> '+this.check);
+            console.log('the sprint id   -->'+this.sprintid);
 
-            var r = confirm("Do you really want to delete this column ?");
-            if (r == true) {
-
-                this.$http.post('/api/layout/delete/'+this.sprintid+'/'+colname);
-                this.fetch();
-            }
 
         }
+
     }
 }
 </script>

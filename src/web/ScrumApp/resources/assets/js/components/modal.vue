@@ -101,6 +101,7 @@
             },
             cancel () {
                 this.$emit('cancel');
+                console.log('modal vue cancel');
                 this.show = false;
             },
             clickMask () {

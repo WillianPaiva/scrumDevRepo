@@ -1,61 +1,111 @@
 <template>
     <div>
-    <ul class="list-group">
-        <li class="list-group-item clearfix"
+        <ul class="list-group">
+            <li class="list-group-item clearfix"
             v-for="task in tasks" :taskid="task.id">{{task.name}}</li>
-            </ul>
-
+        </ul>
+        <div class="container">
+            <modal title="Commit on done task"
+            :show.sync="boolCommitShow"
+            :okText="'Create'"
+            :okClass="'btn btn-success'"
+            :cancelClass="'btn btn-danger'"
+            @ok="addCommit"
+            @cancel="cancel">
+            <form class="form-horizontal" >
+                <div class="form-group">
+                    <label for="name"  class="col-md-4 control-label">Commit Link</label>
+                    <div class="col-md-6">
+                        <input id="name"
+                        v-model="colname"
+                        type="text"
+                        class="form-control"
+                        name="name"
+                        required />
+                    </div>
+                </div>
+            </form>
+        </modal>
+    </div>
     </div>
 </template>
 <script>
- import Sortable from 'sortablejs'
- export default{
-     props:['sprintid','status'],
-     data(){
-         return{
-             tasks:[],
-         }
-     },
-     mounted(){
-         this.fetch();
-         this.sortable();
-     },
-     methods:{
-         fetch: function(){
-             this.$http.get('/api/get_tasks/'+this.sprintid+'/'+this.status).then(function(response){
-                 this.tasks = response.data;
-             });
-         },
-         sortable: function () {
-             var that = this;
-             Sortable.create(this.$el.firstChild, {
-                 draggable: 'li',
-                 group: "tasks",
-                 animation: 100,
-                 sort: false,
-                 onAdd: function (evt) {
-                     /* var itemEl = evt.item;*/
-                     var taskid = this.el.firstChild.getAttribute("taskid");
-                     that.$http.post('/api/updatetask/'+taskid+'/'+that.status)
-                     that.$http.post('/api/updateus/'+that.sprintid);
+import Sortable from 'sortablejs'
+export default{
+    props:['sprintid','status'],
+    data(){
+        return{
+            tasks:[],
+            boolCommitShow:false,
+        }
+    },
+    mounted(){
+        this.fetch();
+        this.sortable();
+    },
+    watch:{
+        boolCommitShow: function(){
+            console.log('bool ->'+this.boolCommitShow);
+        }
+    },
+    methods:{
+        fetch: function(){
+            this.$http.get('/api/get_tasks/'+this.sprintid+'/'+this.status).then(function(response){
+                this.tasks = response.data;
+            });
+        },
+        sortable: function () {
+            var that = this;
+            Sortable.create(this.$el.firstChild, {
+                draggable: 'li',
+                group: "tasks",
+                animation: 100,
+                sort: false,
+                onAdd: function (evt) {
+                    /* var itemEl = evt.item;*/
+                    var taskid = this.el.firstChild.getAttribute("taskid");
+                    that.$http.post('/api/updatetask/'+taskid+'/'+that.status).then(function (response){
+                        if (this.status=='DONE'){
+                            console.log('this -->'+this.status);
+                            console.log('that-->'+that.status);
+                            this.boolTrue();
+                        }
 
-
-                     /* evt.from;*/
-                     // + indexes from onEnd
-                 },
-                 onRemove: function (/**Event*/evt) {
-                     console.log("this is the removal");
+                    });
+                    that.$http.post('/api/updateus/'+that.sprintid);
+                        //that.boolCommitShow=false;
+                    /* evt.from;*/
+                    // + indexes from onEnd
                 },
-             });
-         },
-         isEmpty: function(){
-             return !(this.tasks.lenght > 0);
-         }
-     }
- }
+                onUpdate:function(e){
+
+
+                },
+                onRemove: function (/**Event*/evt) {
+                    console.log("this is the removal-->"+that.status);
+                },
+            });
+        },
+        boolTrue : function (){
+        this.boolCommitShow=true;
+        console.log('-boolTrue');
+        },
+        addCommit: function (){
+            console.log('addCommit');
+        this.boolCommitShow=false;
+        },
+        isEmpty: function(){
+            return !(this.tasks.lenght > 0);
+        },
+        cancel:function (){
+            console.log('cancel called');
+            this.boolCommitShow=false;
+        }
+    }
+}
 </script>
 <style>
- .list-group{
-     min-height: 50px;
- }
+.list-group{
+    min-height: 50px;
+}
 </style>
