@@ -32,6 +32,9 @@
                         </div>
                     </div>
                 </form>
+                <div v-if="missing" class="pull-right">
+                    all champs are required*
+                </div>
             </modal>
         </div>
 </template>
@@ -40,6 +43,7 @@
  props: ['boolShow', 'id'],
  data(){
      return {
+         missing: false,
          sprintRequest:{
                  id: '',
                  name: '',
@@ -52,18 +56,28 @@
  },
      methods:{
          createSprint: function(){
-             this.sprintRequest.project_id = this.id;
-             this.$http.post('/api/sprint/add', this.sprintRequest);
-             this.sprintRequest = {
-                 id: '',
-                 name: '',
-                 date_begin: '',
-                 date_estimated: '',    
-                 project_id: '',            
+             if(
+                 this.sprintRequest.name != '' &&
+                 this.sprintRequest.date_begin != '' &&
+                 this.sprintRequest.date_estimated != '' 
+             ){
+                 this.sprintRequest.project_id = this.id;
+                 this.$http.post('/api/sprint/add', this.sprintRequest);
+                 this.sprintRequest = {
+                     id: '',
+                     name: '',
+                     date_begin: '',
+                     date_estimated: '',    
+                     project_id: '',            
+                 }
+
+                 this.boolShow = false;
+                 this.$emit('close');
+
+             }else{
+                 this.missing = true;
              }
 
-             this.boolShow = false;
-             this.$emit('close');
          },
          cancel: function(){
              this.boolShow = false;
