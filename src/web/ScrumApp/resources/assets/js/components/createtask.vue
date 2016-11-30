@@ -1,4 +1,5 @@
 <template>
+    <div>
     <div class="container">
         <modal title="Create New Task"
                :show.sync="boolShow"
@@ -35,8 +36,10 @@
                                type="number" class="form-control" name="priority" min="1" required />
                     </div>
                 </div>
-                </div>
             </form>
+        <div class="pull-right" v-if="missing">
+           all the champs are required 
+        </div>
         </modal>
     </div>
 </template>
@@ -45,6 +48,7 @@
  export default{
      data(){
          return{
+             missing: false,
              taskRequest:{
                  id: '',
                  name: '',
@@ -64,23 +68,30 @@
 
      methods:{
          createTask: function(){
-             this.taskRequest.user_story_id = this.id;
-             this.$http.post('/api/task/add', this.taskRequest);
-             this.taskRequest = {
-                 id: '',
-                 name: '',
-                 description: '',
-                 status: '',
-                 commit: '',
-                 cost: '',
-                 priority: '',
-                 date_begin: '',
-                 date_estimated: '',
-                 date_finished: '',
-                 user_story_id: '',
+             if(
+                 this.taskRequest.name != '' &&
+                 this.taskRequest.description != '' 
+             ){
+                 this.taskRequest.user_story_id = this.id;
+                 this.$http.post('/api/task/add', this.taskRequest);
+                 this.taskRequest = {
+                     id: '',
+                     name: '',
+                     description: '',
+                     status: '',
+                     commit: '',
+                     cost: '',
+                     priority: '',
+                     date_begin: '',
+                     date_estimated: '',
+                     date_finished: '',
+                     user_story_id: '',
+                 }
+                 this.boolShow = false;
+                 this.$emit('ok');
+             }else{
+                 this.missing = true;
              }
-             this.boolShow = false;
-             this.$emit('ok');
          },
          cancel: function(){
              this.boolShow = false;
