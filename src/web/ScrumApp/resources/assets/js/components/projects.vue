@@ -99,6 +99,9 @@
                         </div>
                     </div>
                 </form>
+                        <div v-if="missing" class="pull-right">
+                            all the chaps are required
+                        </div>
             </modal>
         </div>
 
@@ -117,22 +120,23 @@
                             <div class="panel-heading">{{proj.name}}</div>
                             <div class="panel-body">
                                 <label for="language" class="col-md-4 control-label">Desciption</label>
-            </br>
-            <div class="well">{{ proj.description }}</div>
-            <label for="language" class="col-md-4 control-label">Language</label>
-            </br>
-            <div class="well">{{ proj.language }}</div>
-            <label for="language" class="col-md-4 control-label">Version</label>
-            </br>
-            <div class="well">{{ proj.version }}</div>
-            <label for="language" class="col-md-4 control-label">Owner</label>
-            </br>
-            <div class="well">{{ proj.username }}</div>
-            <label for="language" class="col-md-4 control-label">Members</label>
-            </br>
-            <div id="memb" >
-                <adduser  v-bind:membs="members" v-bind:pid="proj.id"></adduser>
-            </div>
+                                    </br>
+                                    <div class="well">{{ proj.description }}</div>
+                                    <label for="language" class="col-md-4 control-label">Language</label>
+                                    </br>
+                                    <div class="well">{{ proj.language }}</div>
+                                    <label for="language" class="col-md-4 control-label">Version</label>
+                                    </br>
+                                    <div class="well">{{ proj.version }}</div>
+                                    <label for="language" class="col-md-4 control-label">Owner</label>
+                                    </br>
+                                    <div class="well">{{ proj.username }}</div>
+                                    <label for="language" class="col-md-4 control-label">Members</label>
+                                    </br>
+                                    <div id="memb" >
+                                        <adduser  v-bind:membs="members" v-bind:pid="proj.id"></adduser>
+                                    </div>
+
                             </div>
                         </div>
                     </div>
@@ -191,6 +195,7 @@
                  language: '',
                  version: '',
              },
+             missing: false,
              edit: {
                  name: '',
                  user_id: '',
@@ -285,19 +290,29 @@
 
         addproj: function(){
             this.addNewRequest.user_id=this.user;
-            this.$http.post('/api/project/add',this.addNewRequest).then(function(response){
-                console.log(response);
-            });
-            this.addNewRequest = {
-                 name: '',
-                 user_id: '',
-                 description: '',
-                 language: '',
-                 version: '',
-             };
-            this.modalShow = false;
-            this.update();
-             },
+            if(
+                this.addNewRequest.name != '' &&
+                this.addNewRequest.description != '' &&
+                this.addNewRequest.language != '' &&
+                this.addNewRequest.version != ''
+            ){
+                console.log("test----->"+this.addNewRequest.name);
+                this.$http.post('/api/project/add',this.addNewRequest).then(function(response){
+                    /* console.log(response);*/
+                });
+                this.addNewRequest = {
+                    name: '',
+                    user_id: '',
+                    description: '',
+                    language: '',
+                    version: '',
+                };
+                this.modalShow = false;
+                this.update();
+            }else{
+                this.missing = true;
+            }
+        },
         editDetails: function(){
             this.$http.post('/api/project/edit',this.edit);
             this.modalShowEdit = false;
