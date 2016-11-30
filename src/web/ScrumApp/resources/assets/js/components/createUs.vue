@@ -41,6 +41,9 @@
                         </div>
                     </div>
                 </form>
+                <div class="pull-right" v-if="missing">
+                    all champs are required*
+                </div>
             </modal>
         </div>
 </template>
@@ -49,6 +52,7 @@
  props: ['boolShow', 'id'],
  data(){
      return {
+         missing: false,
          userStoryRequest:{
              description: '',
              status: '',
@@ -65,23 +69,29 @@
  },
      methods:{
          createUs: function(){
-             this.userStoryRequest.project_id = this.id;
-             this.$http.post('/api/us/add', this.userStoryRequest);
+             if(
+                 this.userStoryRequest.description != ''
+             ){
+                 this.userStoryRequest.project_id = this.id;
+                 this.$http.post('/api/us/add', this.userStoryRequest);
 
-             this.userStoryRequest = {
-                 description: '',
-                 status: '',
-                 commit: '',
-                 date_begin: '',
-                 date_estimated: '',
-                 date_finished: '',
-                 effort: '1',
-                 priority: '0',
-                 project_id: '',
-                 sprint_id: ''
+                 this.userStoryRequest = {
+                     description: '',
+                     status: '',
+                     commit: '',
+                     date_begin: '',
+                     date_estimated: '',
+                     date_finished: '',
+                     effort: '1',
+                     priority: '0',
+                     project_id: '',
+                     sprint_id: ''
+                 }
+                 this.boolShow = false;
+                 this.$emit('close');
+             }else{
+                 this.missing = true;
              }
-             this.boolShow = false;
-             this.$emit('close');
          },
          cancel: function(){
              this.boolShow = false;
