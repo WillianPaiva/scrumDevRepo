@@ -346,6 +346,24 @@ Route::post('task/edit/', function (Request $request){
 
 });
 
+Route::get('firstprojectusid/{id}',function($id){
+  $sprint = App\Sprint::find($id);
+  $project = App\Project::find($sprint->project_id);
+  $uslist=$project->UserStorys()->get();
+  foreach ($uslist as $us) {
+    foreach ($us->Tasks()->get() as $task) {
+      if(isset($result)){
+        if($task->user_story_id < $result){
+          $result = $task->user_story_id;
+        }
+      }
+      else{
+          $result = $task->user_story_id;
+      }    }
+  }
+  return Response::json($result);
+});
+
 
 
 });
