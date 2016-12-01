@@ -146,6 +146,7 @@ export default{
     height:100%;
     width:300px;
     vertical-align: top;
+    float:left;
 }
 
 .list-inline {

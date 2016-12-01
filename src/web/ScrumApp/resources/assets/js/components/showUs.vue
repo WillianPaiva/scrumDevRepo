@@ -199,7 +199,7 @@
    padding: 5px 10px;
    text-overflow: ellipsis;
    white-space: nowrap;
-   width: 300px;
+   width: 100%;
 }
  .mg{
      margin: 3px;

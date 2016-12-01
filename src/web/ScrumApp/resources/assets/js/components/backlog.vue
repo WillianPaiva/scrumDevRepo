@@ -88,10 +88,11 @@
                 <div class="col-md-4">
                     <div class="panel panel-default">
                         <div class="panel-heading clearfix">
+                         <div class="col-xs-3 text-left">
                             <h4 class="panel-title pull-left" style="padding-top: 7.5px;">
                                 Sprints
                             </h4>
-
+                        </div>
                             <div class="col-xs-6 text-center ">
                                  <select  v-model="orderSprint" class="soflow">
                                      <option value="created_at">created</option>
@@ -333,7 +334,7 @@
    padding: 5px 10px;
    text-overflow: ellipsis;
    white-space: nowrap;
-   width: 300px;
+   width: 100%;
 }
  .mg{
      margin: 3px;
