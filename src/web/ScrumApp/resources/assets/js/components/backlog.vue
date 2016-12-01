@@ -152,7 +152,7 @@
      data(){
          return{
              order: 'created_at',
-             orderSprint : 'created_at',
+             orderSprint: 'created_at',
              project:{},
              idTosend:1,
              SprintId:1,

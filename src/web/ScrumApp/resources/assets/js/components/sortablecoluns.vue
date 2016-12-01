@@ -13,7 +13,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="well">
-                            <sortabletasks :sprintid="sprintid" :status="col.name" ></sortabletasks>
+                            <sortabletasks v-bind:ids="ids" :sprintid="sprintid" :status="col.name" ></sortabletasks>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,8 @@ export default{
             modalShow: false,
             sprintId:1,
             colname:'',
-            check:[]
+            check:[],
+            ids:[],
         }
     },
     props:['sprintid'],
@@ -65,7 +66,14 @@ export default{
         this.fetch();
     },
     methods:{
+
         fetch: function(){
+            this.$http.get('/api/kanban/getus/'+this.sprintid).then(function(response){
+                 this.ids= []
+                 for(var i =0; i < response.data.length; i++){
+                     this.ids.push(parseInt(response.data[i].id));
+                     }
+            });
             this.$http.get('/api/layout/'+this.sprintid).then(function(response){
                 this.colunms = response.data;
             });
