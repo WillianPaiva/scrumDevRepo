@@ -1,9 +1,26 @@
 <template>
     <div>
-        <ul class="list-group">
-            <li class="list-group-item clearfix"
-            v-for="task in tasks" :taskid="task.id">{{task.name}}</li>
-        </ul>
+      <ul class="list-group">
+                <li class="list-group-item clearfix"
+                    v-for="task in tasks" :taskid="task.id">{{task.name}}
+                    <p style="top:15%;" class="truncate">
+                    <div><label class="label label-warning" style="margin-right: 7px;">
+                        US#{{getUsId(task.user_story_id)}}
+                    </label>
+                  </div>
+                  <div>
+                    <label class="label label-info" style="margin-right: 7px;">
+                        priority
+                        <span class="badge">{{ task.priority }}</span>
+                    </label>
+                    <label class="label label-success" style="margin-right: 7px;">
+                        effort
+                        <span class="badge">{{ task.effort }}</span>
+                    </label>
+                  </div>
+                  </p>
+                    </li>
+                    </ul>
 
     </div>
 </template>
@@ -18,6 +35,7 @@ export default{
         }
     },
     mounted(){
+        this.init();
         this.fetch();
         this.sortable();
     },
@@ -27,11 +45,22 @@ export default{
         }
     },
     methods:{
-        fetch: function(){
-            this.$http.get('/api/get_tasks/'+this.sprintid+'/'+this.status).then(function(response){
-                this.tasks = response.data;
-            });
-        },
+      init: function(){
+        this.$http.get('/api/firstprojectusid/'+this.sprintid).then(function(result){
+          this.firstId = result.data;
+        });
+      },
+      fetch: function(){
+          this.$http.get('/api/get_tasks/'+this.sprintid+'/'+this.status).then(function(response){
+            this.ids= [];
+            this.array= [];
+            for(var i =0; i < response.data.length; i++){
+                this.ids.push(response.data[i].user_story_id);
+                this.array.push((response.data[i].user_story_id)-this.firstId);
+            }
+              this.tasks = response.data;
+          });
+      },
         sortable: function () {
             var that = this;
             Sortable.create(this.$el.firstChild, {
@@ -78,7 +107,10 @@ export default{
         cancel:function (){
             console.log('cancel called');
             this.boolCommitShow=false;
-        }
+        },
+        getUsId: function(item){
+            return this.array[this.ids.indexOf(item)];
+        },
     }
 }
 </script>

@@ -35,10 +35,12 @@
                         <div class="well">
                             <ul class="list-group">
                                 <li class="list-group-item clearfix" v-for="(item , index) in tasks">
+                                    <h4 class="truncate">
+                                    {{item.name}}
+                                  </h4>
                                     <p class="truncate">
                                     {{item.description}}
                                     </p>
-
                                         <div>
                                             <label class="label label-success">
                                                 Cost
