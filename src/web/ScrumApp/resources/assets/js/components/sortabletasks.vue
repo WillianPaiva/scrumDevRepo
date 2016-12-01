@@ -5,7 +5,7 @@
                     v-for="task in tasks" :taskid="task.id">{{task.name}}
                     <p style="top:15%;" class="truncate">
                     <div><label class="label label-warning" style="margin-right: 7px;">
-                        US#{{getUsId(task.user_story_id)}}
+                        US#{{getUsIndex(task.user_story_id)}}
                     </label>
                   </div>
                   <div>
@@ -27,7 +27,7 @@
 <script>
 import Sortable from 'sortablejs'
 export default{
-    props:['sprintid','status'],
+    props:['sprintid','status','ids'],
     data(){
         return{
             tasks:[],
@@ -35,7 +35,6 @@ export default{
         }
     },
     mounted(){
-        this.init();
         this.fetch();
         this.sortable();
     },
@@ -45,22 +44,14 @@ export default{
         }
     },
     methods:{
-      init: function(){
-        this.$http.get('/api/firstprojectusid/'+this.sprintid).then(function(result){
-          this.firstId = result.data;
-        });
-      },
       fetch: function(){
           this.$http.get('/api/get_tasks/'+this.sprintid+'/'+this.status).then(function(response){
-            this.ids= [];
-            this.array= [];
-            for(var i =0; i < response.data.length; i++){
-                this.ids.push(response.data[i].user_story_id);
-                this.array.push((response.data[i].user_story_id)-this.firstId);
-            }
               this.tasks = response.data;
           });
       },
+        getUsIndex: function (item) {
+            return this.ids.indexOf(parseInt(item));
+        },
         sortable: function () {
             var that = this;
             Sortable.create(this.$el.firstChild, {
