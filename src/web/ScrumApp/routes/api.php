@@ -287,6 +287,12 @@ Route::group(['middleware' => 'api'], function() {
         return Response::json($project->UserStorys()->orderBy($order)->get());
     });
 
+    //route used to get a list of userstory by a sprint id
+    Route::get('kanban/getus/{id}', function($id) {
+        $project = App\Project::find(App\Sprint::find($id)->project_id);
+        return Response::json($project->UserStorys()->orderBy("created_at")->get());
+    });
+
     ////////////////////////////////////////////////////////////////
     // kanbam section those routes are used by the kanban section //
     ////////////////////////////////////////////////////////////////
