@@ -2,5 +2,5 @@
 </template>
 <script src="./sortabletasks.js">
 </script>
-<style src="./sortabletasks.js">
+<style src="./sortabletasks.css">
 </style>
