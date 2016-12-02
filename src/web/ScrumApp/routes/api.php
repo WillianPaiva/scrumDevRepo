@@ -249,6 +249,7 @@ Route::group(['middleware' => 'api'], function() {
             }
         }
         $us->status = "DONE";
+        $us->date_finished = date("m/d/Y");
         $us->save();
         return true;
     });
@@ -445,11 +446,5 @@ Route::group(['middleware' => 'api'], function() {
         return Response::json($results);
 
     });
-
-
-
-
-
-
 
 });
